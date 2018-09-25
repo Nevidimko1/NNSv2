@@ -11,6 +11,18 @@ import { AppComponent } from './app.component';
     BrowserModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  entryComponents: [
+    AppComponent
+  ]
 })
-export class AppModule { }
+export class AppModule {
+  ngDoBootstrap(app) {
+    const dynamicComponentElement = document.querySelector('#mainContent');
+    dynamicComponentElement.textContent = '';
+
+    const componentElement = document.createElement('app-root');
+    dynamicComponentElement.appendChild(componentElement);
+
+    app.bootstrap(AppComponent);
+  }
+}
