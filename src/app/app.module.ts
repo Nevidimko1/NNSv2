@@ -18,7 +18,7 @@ import { AppComponent } from './app.component';
 export class AppModule {
   private unitListMain: boolean;
   private nns: boolean;
-
+  // test
   constructor() {
     const location = window.location.href.match(/view\/(\d+)(\/[a-zA-Z_]+)?(\/[a-zA-Z_]+)?/);
 
