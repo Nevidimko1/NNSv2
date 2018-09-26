@@ -8,11 +8,11 @@ if (environment.production) {
   enableProdMode();
 }
 
-function r(f) {
-  /in/.test(document.readyState) ? setTimeout(() => r(f), 9) : f();
-}
+// function r(f) {
+//   /in/.test(document.readyState) ? setTimeout(() => r(f), 9) : f();
+// }
 
-r(() => {
+// r(() => {
   platformBrowserDynamic().bootstrapModule(AppModule)
     .catch(err => console.error(err));
-});
+// });
