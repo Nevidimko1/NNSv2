@@ -1,5 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { TableModule } from 'primeng/table';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { StoreModule, Store, select } from '@ngrx/store';
 
 import { AppComponent } from './app.component';
@@ -9,14 +11,18 @@ import { GlobalsService } from './shared/services/globals.service';
 import { HttpModule } from '@angular/http';
 import { map, filter } from 'rxjs/operators';
 import { IGlobals } from './models/globals.model';
+import { UnitsTableComponent } from './modules/unitsTable/unitsTable.component';
 
 @NgModule({
     declarations: [
-        AppComponent
+        AppComponent,
+        UnitsTableComponent
     ],
     imports: [
         BrowserModule,
         HttpModule,
+        NgbModule,
+        TableModule,
         StoreModule.forRoot(Reducers)
     ],
     providers: [
