@@ -20,7 +20,7 @@
             "tsConfig": "src/tsconfig.app.json",
             "assets": [
               "src/assets",
-              "src/tmp/nns2.dev.user.js"
+              "src/tmp/nns.dev.user.js"
             ],
             "styles": [
               "src/styles.css"
@@ -35,7 +35,7 @@
                 }
               ],
               "scripts": [],
-              "optimization": false,
+              "optimization": true,
               "outputHashing": "none",
               "sourceMap": false,
               "extractCss": true,
@@ -51,8 +51,7 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
             "browserTarget": "NNSv2:build",
-            "liveReload": false,
-            "optimization": false
+            "liveReload": false
           },
           "configurations": {
             "production": {

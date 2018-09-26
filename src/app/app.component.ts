@@ -9,7 +9,7 @@ import { Store, select } from '@ngrx/store';
 export class AppComponent {
 
     constructor(private store: Store<AppState>) {
-        store.pipe(select(globals))
+        this.store.pipe(select(globals))
             .subscribe(console.log);
     }
 }
