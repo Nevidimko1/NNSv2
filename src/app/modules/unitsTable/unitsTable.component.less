@@ -1,5 +1,77 @@
+@import 'https://cdn.jsdelivr.net/npm/primeicons@1.0.0-beta.10/primeicons.css';
+@import 'https://cdn.jsdelivr.net/npm/primeng@6.1.4/resources/themes/bootstrap/theme.css';
+@import 'https://cdn.jsdelivr.net/npm/primeng@6.1.4/resources/primeng.min.css';
+
+@mainColor: #ccc;
+@fontColor: #323232;
+@lightColor: #ededed; 
+@highlight: #D1E5F7;
+
 :host {
     flex-grow: 1;
     display: flex;
     flex-direction: column;
+    margin: 6px 0;
+    position: relative;
+}
+
+.type-img {
+    height: 20px;
+}
+
+.cell-wrapper {
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+/deep/ p-table {
+    position: absolute;
+    bottom: 0;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+
+    color: @fontColor;
+    border-top: 1px solid @mainColor;
+    border-bottom: 1px solid @mainColor;
+
+    .ui-table-scrollable-header-box, .ui-table-scrollable-body {
+        margin-right: 0px !important;
+        overflow-y: scroll;
+    }
+
+    .ui-table-scrollable-header {
+        border-left: none;
+        border-right: none;
+        border-top: none;
+        border-bottom: 1px solid @mainColor;
+    }
+
+    td, th {
+        /* hack for td contents to be 100% of td height */
+        height: 1px;
+        font-size: 11px;
+    }
+    
+    .b-right {
+        border-right: 1px solid @lightColor;
+    }
+
+    tr:not(:last-child) {
+        border-bottom: 1px solid @lightColor;
+    }
+
+    tr th {
+        border-right: 1px solid @mainColor;
+    }
+
+    .ui-table-tbody tr:nth-child(odd) td {
+        background: ~'rgb(200, 200, 200, 0.3)';
+    }
+
+    .ui-state-highlight {
+        background-color: @highlight;
+        color: @fontColor;
+    }
 }

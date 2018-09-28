@@ -65,27 +65,27 @@ export interface IUnitItemProduct extends IBase {
 }
 
 export interface IUnitItem extends IBase {
-    country_symbol: string;
-    country_name: string;
-    region_name: string;
-    city_name: string;
-    unit_type_id: number;
-    unit_type_symbol: string;
-    unit_type_name: string;
+    countrySymbol: string;
+    countryName: string;
+    regionName: string;
+    cityName: string;
+    unitTypeId: number;
+    unitTypeSymbol: string;
+    unitTypeName: string;
     size: number;
-    labor_max: number;
-    equipment_max: number;
+    laborMax: number;
+    equipmentMax: number;
     square: number;
-    unit_type_produce_name: string;
-    unit_class_id: number;
-    unit_class_name: string;
-    unit_class_kind: string;
+    unitTypeProduceName: string;
+    unitClassId: number;
+    unitClassName: string;
+    unitClassKind: string;
     productivity: number;
     notice: string;
     products: IUnitItemProduct[];
-    market_status: string;
-    time_to_build: number;
-    office_sort: number;
+    marketStatus: string;
+    timeToBuild: number;
+    officeSort: number;
 
     indicators: IUnitIndicator[];
 }

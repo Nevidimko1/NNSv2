@@ -1,18 +1,69 @@
-<p-table [value]="units | async" [scrollable]="true" scrollHeight="100%">
-    <ng-template pTemplate="header">
+<p-table [columns]="columns | async" [value]="units | async" [scrollable]="true" scrollHeight="100%" sortMode="multiple">
+    
+    <ng-template pTemplate="colgroup" let-columns>
+        <colgroup>
+            <col [style.width]="'22px'">
+            <col *ngFor="let col of columns" [style.width]="col.width">
+        </colgroup>
+    </ng-template>
+
+    <ng-template pTemplate="header" let-columns>
         <tr>
-            <th>Id</th>
-            <th>Country</th>
-            <th>City</th>
-            <th>Name</th>
+            <th class="b-right">
+                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+            </th>
+            <th *ngFor="let col of columns" [class]="col.headerClass" [title]="col.title" [pSortableColumn]="col.fieldToSort">
+                {{col.name}}
+                <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+            </th>
         </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-unit>
-        <tr>
-            <td>{{unit.id}}</td>
-            <td>{{unit.country_name}}</td>
-            <td>{{unit.city_name}}</td>
-            <td>{{unit.name}}</td>
+    
+    <ng-template pTemplate="body" let-unit let-columns="columns">
+        <tr [pSelectableRow]="unit">
+            <td class="b-right">
+                <p-tableCheckbox [value]="unit"></p-tableCheckbox>
+            </td>
+
+            <td *ngFor="let col of columns" [class]="'position-relative ' + col.class">
+                    
+                <!-- Country -->
+                <ng-container *ngIf="col.field === 'country'">
+                    <div class="cell-wrapper justify-content-center">
+                        <img src="/img/flag/{{unit.countrySymbol}}.png">
+                    </div>
+                </ng-container>
+                
+                <!-- City -->
+                <ng-container *ngIf="col.field === 'cityName'">
+                    <div class="cell-wrapper">
+                        {{unit[col.field]}}
+                    </div>
+                </ng-container>
+                
+                <!-- Type -->
+                <ng-container *ngIf="col.field === 'type'">
+                    <div class="cell-wrapper p-1px justify-content-center">
+                       <img class="type-img" src="/img/unit_types/{{unit.unitTypeSymbol}}.gif">
+                    </div>
+                </ng-container>
+                
+                <!-- Name -->
+                <ng-container *ngIf="col.field === 'name'">
+                    <div class="cell-wrapper">
+                        {{unit[col.field]}}
+                    </div>
+                </ng-container>
+                
+                <!-- Productivity -->
+                <ng-container *ngIf="col.field === 'productivity'">
+                    <div class="cell-wrapper justify-content-center text-white"
+                        [ngClass]="{'bg-danger': unit[col.field] < 0.5, 'bg-warning': unit[col.field] >= 0.5 && unit[col.field] < 1, 'bg-success': unit[col.field] === 1}">
+                        <span>{{(unit[col.field] * 100).toFixed(0) + '%'}}</span>
+                    </div>
+                </ng-container>
+
+            </td>
         </tr>
     </ng-template>
 </p-table>

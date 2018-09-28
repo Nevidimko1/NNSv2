@@ -1,6 +1,8 @@
 import { GlobalsReducer } from './GlobalsReducer';
-import { globals } from '../shared/appState';
+import { globals, unitsTableColumnSettings } from '../shared/appState';
+import { UnitsTableColumnSettingsReducer } from '../modules/unitsTable/unitsTableColumnSettings.reducer';
 
 export const Reducers = {
-    [globals]: GlobalsReducer
+    [globals]: GlobalsReducer,
+    [unitsTableColumnSettings]: UnitsTableColumnSettingsReducer
 };

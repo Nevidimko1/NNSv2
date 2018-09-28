@@ -23,7 +23,6 @@
               "src/tmp/nns.dev.user.js"
             ],
             "styles": [
-              "node_modules/primeng/resources/primeng.min.css",
               "src/styles.css"
             ]
           },

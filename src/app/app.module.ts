@@ -67,10 +67,17 @@ export class AppModule {
             select(globals),
             filter((state: IGlobals) => state.info.isNNSPage),
             map(() => {
+                // add body class selector
+                document.body.classList.add('nns');
+
+                // remove footer
+                const elem = document.querySelector('.metro_footer');
+                elem.parentNode.removeChild(elem);
+
+                // bootstrap app
                 const rootEl = document.querySelector('#mainContent');
                 rootEl.textContent = '';
                 rootEl.appendChild(document.createElement('app-root'));
-
                 app.bootstrap(AppComponent);
             })
         ).subscribe().unsubscribe();
