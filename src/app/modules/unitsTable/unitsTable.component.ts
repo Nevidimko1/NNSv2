@@ -30,10 +30,7 @@ export class UnitsTableComponent {
         );
         this.units = this.store.pipe(
             select(globals),
-            map((state: IGlobals) => {
-                console.log(state.unitsList);
-                return state.unitsList;
-            })
+            map((state: IGlobals) => state.unitsList)
         );
     }
 }

@@ -1,6 +1,6 @@
 import { IBase } from './base.model';
 
-export interface IUnitsResponseDataItem {
+export class IUnitsResponseDataItem {
     id: string;
     name: string;
     country_symbol: string;
@@ -28,23 +28,23 @@ export interface IUnitsResponseDataItem {
     office_sort: string;
 }
 
-export interface IUnitsResponseIndicator {
+export class IUnitsResponseIndicator {
     id: string;
     kind: string;
     name: string;
 }
 
-export interface IUnitsResponseIndicators {
+export class IUnitsResponseIndicators {
     [indicatorId: string]: IUnitsResponseIndicator;
 }
 
-export interface IUnitsResponseInfo {
+export class IUnitsResponseInfo {
     count: string;
     page: number;
     page_size: number;
 }
 
-export interface IUnitsResponse {
+export class IUnitsResponse {
     data: {
         [key: string]: IUnitsResponseDataItem
     };

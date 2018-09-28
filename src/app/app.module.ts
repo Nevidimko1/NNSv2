@@ -12,6 +12,7 @@ import { HttpModule } from '@angular/http';
 import { map, filter } from 'rxjs/operators';
 import { IGlobals } from './models/globals.model';
 import { UnitsTableComponent } from './modules/unitsTable/unitsTable.component';
+import { UnitsListParser } from './shared/parsers/unitsList.parser';
 
 @NgModule({
     declarations: [
@@ -26,6 +27,7 @@ import { UnitsTableComponent } from './modules/unitsTable/unitsTable.component';
         StoreModule.forRoot(Reducers)
     ],
     providers: [
+        UnitsListParser,
         GlobalsService
     ],
     entryComponents: [
