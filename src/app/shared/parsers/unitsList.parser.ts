@@ -1,7 +1,10 @@
-import { IUnitItem, IUnitsResponseDataItem, IUnitItemProduct, IUnitsResponseIndicator, IUnitsResponse } from '../../models/unitInfo.model';
+import { Unit } from '../../models/unitInfo/unit.model';
 import { CommonUtils } from '../../utils/common.utils';
 import { Response } from '@angular/http';
 import { Parser } from './parser';
+import { IUnitsResponseItem, IUnitsResponse, IUnitsResponseIndicator } from '../../models/unitInfo/unitResponse.model';
+import { UnitIndicator } from '../../models/unitInfo/unitIndicator.model';
+import { UnitProduct } from '../../models/unitInfo/unitProduct.model';
 
 export class UnitsListParser extends Parser {
     protected error = 'Failed to parse Units list response';
@@ -10,7 +13,7 @@ export class UnitsListParser extends Parser {
         super();
     }
 
-    private mapProducts = (responseItem: IUnitsResponseDataItem): IUnitItemProduct[] => {
+    private mapProducts = (responseItem: IUnitsResponseItem): UnitProduct[] => {
         const idsString = (responseItem.product_ids || '{}'),
             ids = idsString
                 .slice(1, idsString.length - 1)
@@ -32,23 +35,23 @@ export class UnitsListParser extends Parser {
         }
 
         return ids.map((id, i) => {
-            return {
+            return new UnitProduct({
                 id,
                 symbol: product_symbols[i],
                 name: product_names[i]
-            };
+            });
         }) || [];
     }
 
-    public parse = (response: Response): IUnitItem[] => {
+    public parse = (response: Response): Unit[] => {
         const body = response.json();
         this.diff(body, IUnitsResponse);
 
         const data = CommonUtils.flatMap(body.data);
-        this.diff(data[0], IUnitsResponseDataItem);
+        this.diff(data[0], IUnitsResponseItem);
 
-        return data.map((responseItem: IUnitsResponseDataItem) => {
-            return {
+        return data.map((responseItem: IUnitsResponseItem) => {
+            return new Unit({
                 id: Number(responseItem.id),
                 name: responseItem.name,
                 countrySymbol: responseItem.country_symbol,
@@ -67,6 +70,7 @@ export class UnitsListParser extends Parser {
                 unitClassName: responseItem.unit_class_name,
                 unitClassKind: responseItem.unit_class_kind,
                 productivity: Number(responseItem.productivity),
+                productivityTomorrow: null,
                 notice: responseItem.notice,
                 marketStatus: responseItem.market_status,
                 timeToBuild: Number(responseItem.time_to_build),
@@ -75,13 +79,13 @@ export class UnitsListParser extends Parser {
                 indicators: Object.keys(body.indicators)
                     .filter((key: string) => Number(responseItem.id) === Number(key))
                     .map((key: string) => CommonUtils.flatMap(body.indicators[key])
-                        .map((item: IUnitsResponseIndicator) => ({
+                        .map((item: IUnitsResponseIndicator) => new UnitIndicator({
                             id: Number(item.id),
                             kind: item.kind,
                             name: item.name
                         }))
                     )[0] || []
-            };
+            });
         });
     }
 }

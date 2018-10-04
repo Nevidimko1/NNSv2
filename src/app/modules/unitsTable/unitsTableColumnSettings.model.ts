@@ -32,13 +32,29 @@ const defaultColumns: IColumnData[] = [
         fieldToSort: 'name',
         name: 'Name',
         width: null,
+        class: ''
+    },
+    {
+        field: 'indicators',
+        fieldToSort: 'indicators',
+        name: 'Ind',
+        width: '70px',
         class: 'b-right'
     },
     {
         field: 'productivity',
         fieldToSort: 'productivity',
         name: 'Eff',
-        width: '44px',
+        title: 'Efficiency',
+        width: '50px',
+        class: 'b-right p-0 text-center'
+    },
+    {
+        field: 'productivityTomorrow',
+        fieldToSort: 'productivityTomorrow',
+        name: 'EffT',
+        title: 'Efficiency tomorrow',
+        width: '50px',
         class: 'b-right p-0 text-center'
     }
 ];

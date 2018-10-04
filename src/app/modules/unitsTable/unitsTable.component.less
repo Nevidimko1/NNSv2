@@ -25,6 +25,23 @@
     align-items: center;
 }
 
+.status-success {
+    color: #155724;
+    background-color: hsla(134, 100%, 50%, 0.3);
+}
+.status-danger {
+    color: #721c24;
+    background-color: hsla(355, 100%, 60%, 0.3)
+}
+.status-warning {
+    color: #856404;
+    background-color: hsla(46, 100%, 50%, 0.3)
+}
+.status-info {
+    color: #004085;
+    background-color: hsla(211, 100%, 60%, 0.3)
+}
+
 /deep/ p-table {
     position: absolute;
     bottom: 0;
@@ -67,7 +84,11 @@
     }
 
     .ui-table-tbody tr:nth-child(odd) td {
-        background: ~'rgb(200, 200, 200, 0.3)';
+        background: ~'rgb(200, 200, 200, 0.1)';
+    }
+
+    .ui-table-tbody tr:hover td {
+        background: ~'rgb(0, 123, 255, 0.1)';
     }
 
     .ui-state-highlight {

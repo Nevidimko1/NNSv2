@@ -36,3 +36,7 @@
 .m-1px {
     padding: 1px;
 }
+
+.f-grow {
+    flex-grow: 1;
+}

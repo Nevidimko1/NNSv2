@@ -1,6 +1,4 @@
-import { IBase } from './base.model';
-
-export class IUnitsResponseDataItem {
+export class IUnitsResponseItem {
     id: string;
     name: string;
     country_symbol: string;
@@ -46,46 +44,10 @@ export class IUnitsResponseInfo {
 
 export class IUnitsResponse {
     data: {
-        [key: string]: IUnitsResponseDataItem
+        [key: string]: IUnitsResponseItem
     };
     indicators: {
         [unitId: string]: IUnitsResponseIndicators;
     };
     info: any;
-}
-
-export interface IUnitIndicator extends IBase {
-    id: number;
-    kind: string;
-    name: string;
-}
-
-export interface IUnitItemProduct extends IBase {
-    symbol: string;
-}
-
-export interface IUnitItem extends IBase {
-    countrySymbol: string;
-    countryName: string;
-    regionName: string;
-    cityName: string;
-    unitTypeId: number;
-    unitTypeSymbol: string;
-    unitTypeName: string;
-    size: number;
-    laborMax: number;
-    equipmentMax: number;
-    square: number;
-    unitTypeProduceName: string;
-    unitClassId: number;
-    unitClassName: string;
-    unitClassKind: string;
-    productivity: number;
-    notice: string;
-    products: IUnitItemProduct[];
-    marketStatus: string;
-    timeToBuild: number;
-    officeSort: number;
-
-    indicators: IUnitIndicator[];
 }

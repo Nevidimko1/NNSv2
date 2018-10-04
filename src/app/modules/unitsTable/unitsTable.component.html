@@ -20,8 +20,8 @@
     </ng-template>
     
     <ng-template pTemplate="body" let-unit let-columns="columns">
-        <tr [pSelectableRow]="unit">
-            <td class="b-right">
+        <tr [pSelectableRow]="unit" class="position-relative">
+            <td class="position-relative b-right">
                 <p-tableCheckbox [value]="unit"></p-tableCheckbox>
             </td>
 
@@ -55,11 +55,24 @@
                     </div>
                 </ng-container>
                 
+                <!-- Indicators -->
+                <ng-container *ngIf="col.field === 'indicators'">
+                    <div class="cell-wrapper justify-content-end">
+                        <img *ngFor="let indicator of unit.indicators" src="/img/unit_indicator/{{indicator.kind}}.gif" [title]="indicator.name">
+                    </div>
+                </ng-container>
+                
                 <!-- Productivity -->
                 <ng-container *ngIf="col.field === 'productivity'">
-                    <div class="cell-wrapper justify-content-center text-white"
-                        [ngClass]="{'bg-danger': unit[col.field] < 0.5, 'bg-warning': unit[col.field] >= 0.5 && unit[col.field] < 1, 'bg-success': unit[col.field] === 1}">
-                        <span>{{(unit[col.field] * 100).toFixed(0) + '%'}}</span>
+                    <div class="cell-wrapper justify-content-center {{productivityClass(unit[col.field])}}">
+                        <span>{{unit.productivityDisplay}}</span>
+                    </div>
+                </ng-container>
+
+                <!-- Productivity tomorrow -->
+                <ng-container *ngIf="col.field === 'productivityTomorrow'">
+                    <div class="cell-wrapper justify-content-center {{productivityClass(unit[col.field])}}">
+                        <span>{{unit.productivityTomorrowDisplay}}</span>
                     </div>
                 </ng-container>
 

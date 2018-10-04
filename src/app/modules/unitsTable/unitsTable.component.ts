@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { AppState, globals, unitsTableColumnSettings } from '../../shared/appState';
 import { Observable } from 'rxjs';
-import { IUnitItem } from '../../models/unitInfo.model';
+import { Unit } from '../../models/unitInfo/unit.model';
 import { map } from 'rxjs/operators';
 import { IGlobals } from '../../models/globals.model';
 import { UnitsTableColumnSettings } from './unitsTableColumnSettings.model';
@@ -19,7 +19,7 @@ import { Column } from '../../models/table/column.model';
 export class UnitsTableComponent {
 
     protected columns: Observable<Column[]>;
-    protected units: Observable<IUnitItem[]>;
+    protected units: Observable<Unit[]>;
 
     constructor(
         private store: Store<AppState>
@@ -32,5 +32,19 @@ export class UnitsTableComponent {
             select(globals),
             map((state: IGlobals) => state.unitsList)
         );
+    }
+
+    productivityClass = (productivity: number): string => {
+        if (productivity == null) {
+            return 'status-info';
+        } else if (productivity < 0.5) {
+            return 'status-danger';
+        } else if (productivity >= 0.5 && productivity < 1) {
+            return 'status-warning';
+        } else if (productivity === 1) {
+            return 'status-success';
+        } else {
+            return '';
+        }
     }
 }

@@ -11,8 +11,8 @@ export const GlobalsActions = {
 const defaultState: IGlobals = {
     token: null,
     info: null,
-    unitsList: null,
-    unitTypes: null
+    unitsList: [],
+    unitTypes: []
 };
 
 export function GlobalsReducer(state = defaultState, action: any): IGlobals {

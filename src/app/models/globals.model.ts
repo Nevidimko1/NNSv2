@@ -1,4 +1,4 @@
-import { IUnitItem } from './unitInfo.model';
+import { Unit } from './unitInfo/unit.model';
 import { IUnitType } from './unitType.model';
 
 export interface IGlobalsInfo {
@@ -12,6 +12,6 @@ export interface IGlobalsInfo {
 export interface IGlobals {
     token: string;
     info: IGlobalsInfo;
-    unitsList: IUnitItem[];
+    unitsList: Unit[];
     unitTypes: IUnitType[];
 }
