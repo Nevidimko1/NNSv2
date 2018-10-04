@@ -10,9 +10,12 @@ import { AppState, globals } from './shared/appState';
 import { GlobalsService } from './shared/services/globals.service';
 import { HttpModule } from '@angular/http';
 import { map, filter } from 'rxjs/operators';
-import { IGlobals } from './models/globals.model';
 import { UnitsTableComponent } from './modules/unitsTable/unitsTable.component';
 import { UnitsListParser } from './shared/parsers/unitsList.parser';
+import { UnitsListService } from './shared/services/unitsList.service';
+import { UnitsTypesService } from './shared/services/unitsTypes.service';
+import { UnitsTypesParser } from './shared/parsers/unitsTypes.parser';
+import { IGlobalsState } from './reducers/globals.reducer';
 
 @NgModule({
     declarations: [
@@ -28,7 +31,10 @@ import { UnitsListParser } from './shared/parsers/unitsList.parser';
     ],
     providers: [
         UnitsListParser,
-        GlobalsService
+        UnitsTypesParser,
+        GlobalsService,
+        UnitsListService,
+        UnitsTypesService
     ],
     entryComponents: [
         AppComponent
@@ -44,8 +50,8 @@ export class AppModule {
 
         this.store.pipe(
             select(globals),
-            filter((state: IGlobals) => state.info.isUnitListPage),
-            map((state: IGlobals) => {
+            filter((state: IGlobalsState) => state.info.isUnitListPage),
+            map((state: IGlobalsState) => {
                 const tabs = document.querySelectorAll('.tabu li') as any as HTMLElement[];
                 const nnsTab = tabs[0].cloneNode(true) as HTMLElement;
                 nnsTab.querySelector('a').href += '/nns';
@@ -67,7 +73,7 @@ export class AppModule {
     ngDoBootstrap(app) {
         this.store.pipe(
             select(globals),
-            filter((state: IGlobals) => state.info.isNNSPage),
+            filter((state: IGlobalsState) => state.info.isNNSPage),
             map(() => {
                 // add body class selector
                 document.body.classList.add('nns');

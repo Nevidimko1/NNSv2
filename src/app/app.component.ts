@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { UnitsListService } from './shared/services/unitsList.service';
+import { UnitsTypesService } from './shared/services/unitsTypes.service';
 
 @Component({
     selector: 'app-root',
@@ -14,5 +16,11 @@ import { Component } from '@angular/core';
     `]
 })
 export class AppComponent {
-
+    constructor(
+        private unitsListService: UnitsListService,
+        private unitsTypesService: UnitsTypesService
+    ) {
+        this.unitsListService.fetchUnitsList$().subscribe();
+        this.unitsTypesService.fetchUnitTypesList$().subscribe();
+    }
 }

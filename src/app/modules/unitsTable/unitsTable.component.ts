@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 import { Store, select } from '@ngrx/store';
-import { AppState, globals, unitsTableColumnSettings } from '../../shared/appState';
 import { Observable } from 'rxjs';
-import { Unit } from '../../models/unitInfo/unit.model';
 import { map } from 'rxjs/operators';
-import { IGlobals } from '../../models/globals.model';
+
+import { AppState, unitsTableColumnSettings, unitsList } from '../../shared/appState';
+import { Unit } from '../../models/unitInfo/unit.model';
 import { UnitsTableColumnSettings } from './unitsTableColumnSettings.model';
 import { Column } from '../../models/table/column.model';
+import { UnitsListState } from '../../reducers/unitsList.reducer';
 
 @Component({
     selector: 'app-units-table',
@@ -29,8 +30,8 @@ export class UnitsTableComponent {
             map((state: UnitsTableColumnSettings) => state.columns)
         );
         this.units = this.store.pipe(
-            select(globals),
-            map((state: IGlobals) => state.unitsList)
+            select(unitsList),
+            map((state: UnitsListState) => state.values)
         );
     }
 
