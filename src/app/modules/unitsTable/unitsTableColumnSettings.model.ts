@@ -20,7 +20,7 @@ const defaultColumns: IColumnData[] = [
     },
     {
         field: 'type',
-        fieldToSort: 'unitTypeSymbol',
+        fieldToSort: 'type',
         name: 'T',
         title: 'Type',
         width: '36px',
