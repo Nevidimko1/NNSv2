@@ -16,11 +16,20 @@ import { UnitsListService } from './shared/services/unitsList.service';
 import { UnitsTypesService } from './shared/services/unitsTypes.service';
 import { UnitsTypesParser } from './shared/parsers/unitsTypes.parser';
 import { IGlobalsState } from './reducers/globals.reducer';
+import { ToolbarComponent } from './modules/toolbar/toolbar.component';
+import { LetDirective } from './directives/ngLet.directive';
+import { PriceComponent } from './modules/toolbar/partials/price/price.component';
+import { SupplyComponent } from './modules/toolbar/partials/supply/supply.component';
 
 @NgModule({
     declarations: [
+        LetDirective,
         AppComponent,
-        UnitsTableComponent
+        ToolbarComponent,
+        UnitsTableComponent,
+
+        PriceComponent,
+        SupplyComponent
     ],
     imports: [
         BrowserModule,
@@ -37,7 +46,8 @@ import { IGlobalsState } from './reducers/globals.reducer';
         UnitsTypesService
     ],
     entryComponents: [
-        AppComponent
+        AppComponent,
+        ToolbarComponent
     ]
 })
 export class AppModule {
@@ -87,6 +97,11 @@ export class AppModule {
                 rootEl.textContent = '';
                 rootEl.appendChild(document.createElement('app-root'));
                 app.bootstrap(AppComponent);
+
+                // bootstrap toolbar
+                const toolbarEl = document.createElement('app-toolbar');
+                document.body.appendChild(toolbarEl);
+                app.bootstrap(ToolbarComponent);
             })
         ).subscribe().unsubscribe();
     }

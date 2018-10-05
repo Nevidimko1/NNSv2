@@ -26,6 +26,7 @@ export interface IUnit extends IBase {
     timeToBuild: number;
     officeSort: number;
     indicators: UnitIndicator[];
+    url: string;
 }
 
 export class Unit extends Base {
@@ -56,11 +57,5 @@ export class Unit extends Base {
     get timeToBuild(): number {         return this._data.timeToBuild; }
     get officeSort(): number {          return this._data.officeSort; }
     get indicators(): UnitIndicator[] { return this._data.indicators; }
-
-    get productivityDisplay(): string {
-        return (this.productivity * 100).toFixed(0) + '%';
-    }
-    get productivityTomorrowDisplay(): string {
-        return this.productivityTomorrow != null ? (this.productivityTomorrow * 100).toFixed(0) + '%' : '?';
-    }
+    get url(): string {                 return this._data.url; }
 }

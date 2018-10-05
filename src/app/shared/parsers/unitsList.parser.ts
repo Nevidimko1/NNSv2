@@ -43,7 +43,7 @@ export class UnitsListParser extends Parser {
         }) || [];
     }
 
-    public parse = (response: Response): Unit[] => {
+    public parse = (response: Response, realm: string): Unit[] => {
         const body = response.json();
         this.diff(body, IUnitsResponse);
 
@@ -83,7 +83,8 @@ export class UnitsListParser extends Parser {
                         kind: item.kind,
                         name: item.name
                     }))
-                )[0] || []
+                )[0] || [],
+            url: `/${realm}/main/unit/view/${responseItem.id}`
         }));
     }
 }

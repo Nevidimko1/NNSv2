@@ -1,0 +1,53 @@
+.card {
+    border-radius: 0;
+    border-right: 0;
+    border-left: 0;
+    border-top: 0;
+
+    .card-header {
+        padding: 2px 5px;
+        font-weight: bold;
+        border-bottom: 0;
+
+        .icons {
+            width: 14px;
+        }
+
+        &.disabled {
+            cursor: default;
+        }
+    }
+
+    .card-body {
+        padding: 5px;
+        border-top: 1px solid rgba(0, 0, 0, .125);
+
+        form {
+            width: 100%;
+        }
+    }
+
+    .form-group {
+        margin-bottom: 5px;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    .form-control:focus {
+        outline: none !important;
+        box-shadow: none !important;
+    }
+
+    .col-form-label {
+        padding: 0;
+        height: 20px;
+        font-size: 100%;
+    }
+    .form-control-sm {
+        padding: 0;
+        height: 20px;
+        font-size: 100%;
+    }
+}

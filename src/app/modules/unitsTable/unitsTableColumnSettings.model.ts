@@ -56,6 +56,13 @@ const defaultColumns: IColumnData[] = [
         title: 'Efficiency tomorrow',
         width: '50px',
         class: 'b-right p-0 text-center'
+    },
+    {
+        field: 'size',
+        fieldToSort: 'size',
+        name: 'Size',
+        width: '50px',
+        class: 'b-right'
     }
 ];
 

@@ -19,13 +19,17 @@ export class UnitsListService {
     ) { }
 
     public fetchUnitsList$ = (): Observable<any> => {
+        let realm: string;
         return this.store.pipe(
             select(globals),
             first(),
-            flatMap((g: IGlobalsState) => this.http.get(unitListUrl(g.info.realm, g.info.companyId))),
+            flatMap((g: IGlobalsState) => {
+                realm = g.info.realm;
+                return this.http.get(unitListUrl(g.info.realm, g.info.companyId));
+            }),
             map((response: Response) => this.store.dispatch({
                 type: UnitsListActions.INIT,
-                payload: this.unitsListParser.parse(response)
+                payload: this.unitsListParser.parse(response, realm)
             }))
         );
     }

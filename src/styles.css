@@ -1,6 +1,22 @@
+body.nns {
+    display: flex;
+    justify-content: center;
+}
+
 .nns #wrapper {
     display: flex;
     flex-direction: column;
+    flex-grow: 1;
+    min-width: unset;
+    width: unset;
+    margin: 0;
+}
+
+.nns .metro_header {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-width: unset;
 }
 
 .nns #mainContent {
@@ -37,6 +53,6 @@
     padding: 1px;
 }
 
-.f-grow {
+.flex-grow {
     flex-grow: 1;
 }

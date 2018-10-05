@@ -3,11 +3,12 @@ import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { AppState, unitsTableColumnSettings, unitsList } from '../../shared/appState';
-import { Unit } from '../../models/unitInfo/unit.model';
+import { AppState, unitsTableColumnSettings, unitsTable } from '../../shared/appState';
 import { UnitsTableColumnSettings } from './unitsTableColumnSettings.model';
 import { Column } from '../../models/table/column.model';
-import { UnitsListState } from '../../reducers/unitsList.reducer';
+import { UnitsTableService } from './unitsTable.service';
+import { UnitsTableItem } from './models/unitsTableItem.model';
+import { UnitsTableState } from './unitsTable.reducer';
 
 @Component({
     selector: 'app-units-table',
@@ -15,23 +16,30 @@ import { UnitsListState } from '../../reducers/unitsList.reducer';
     styleUrls: [
         '../../../../node_modules/bootstrap/dist/css/bootstrap.min.css',
         './unitsTable.component.less'
+    ],
+    providers: [
+        UnitsTableService
     ]
 })
 export class UnitsTableComponent {
 
     protected columns: Observable<Column[]>;
-    protected units: Observable<Unit[]>;
+    protected data: Observable<UnitsTableItem[]>;
+
+    private selected: UnitsTableItem[];
 
     constructor(
-        private store: Store<AppState>
+        private store: Store<AppState>,
+        protected service: UnitsTableService
     ) {
+        this.selected = [];
         this.columns = this.store.pipe(
             select(unitsTableColumnSettings),
             map((state: UnitsTableColumnSettings) => state.columns)
         );
-        this.units = this.store.pipe(
-            select(unitsList),
-            map((state: UnitsListState) => state.values)
+        this.data = this.store.pipe(
+            select(unitsTable),
+            map((state: UnitsTableState) => state.values)
         );
     }
 
@@ -48,4 +56,6 @@ export class UnitsTableComponent {
             return '';
         }
     }
+
+    updateSelection = () => setTimeout(() => this.service.updateSelection(this.selected));
 }

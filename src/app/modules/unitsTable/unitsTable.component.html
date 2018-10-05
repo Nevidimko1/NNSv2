@@ -1,17 +1,15 @@
-<p-table [columns]="columns | async" [value]="units | async" [scrollable]="true" scrollHeight="100%" sortMode="multiple">
+<p-table [columns]="columns | async" [value]="data | async" [scrollable]="true" scrollHeight="100%"
+    selectionMode="multiple" [metaKeySelection]="true" [(selection)]="selected" (onRowSelect)="updateSelection()" (onRowUnselect)="updateSelection()"
+    sortMode="multiple">
     
     <ng-template pTemplate="colgroup" let-columns>
         <colgroup>
-            <col [style.width]="'22px'">
             <col *ngFor="let col of columns" [style.width]="col.width">
         </colgroup>
     </ng-template>
 
     <ng-template pTemplate="header" let-columns>
         <tr>
-            <th class="b-right">
-                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-            </th>
             <th *ngFor="let col of columns" [class]="col.headerClass" [title]="col.title" [pSortableColumn]="col.fieldToSort">
                 {{col.name}}
                 <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
@@ -19,60 +17,64 @@
         </tr>
     </ng-template>
     
-    <ng-template pTemplate="body" let-unit let-columns="columns">
-        <tr [pSelectableRow]="unit" class="position-relative">
-            <td class="position-relative b-right">
-                <p-tableCheckbox [value]="unit"></p-tableCheckbox>
-            </td>
+    <ng-template pTemplate="body" let-item let-columns="columns" let-rowIndex="rowIndex">
+        <tr class="position-relative" [pSelectableRow]="item" [pSelectableRowIndex]="rowIndex">
 
             <td *ngFor="let col of columns" [class]="'position-relative ' + col.class">
                     
                 <!-- Country -->
                 <ng-container *ngIf="col.field === 'country'">
                     <div class="cell-wrapper justify-content-center">
-                        <img src="/img/flag/{{unit.countrySymbol}}.png">
+                        <img src="/img/flag/{{item.countrySymbol}}.png" [title]="item.countryName">
                     </div>
                 </ng-container>
                 
                 <!-- City -->
                 <ng-container *ngIf="col.field === 'cityName'">
                     <div class="cell-wrapper">
-                        {{unit[col.field]}}
+                        {{item[col.field]}}
                     </div>
                 </ng-container>
                 
                 <!-- Type -->
                 <ng-container *ngIf="col.field === 'type'">
                     <div class="cell-wrapper p-1px justify-content-center">
-                       <img class="type-img" src="/img/unit_types/{{unit.unitTypeSymbol}}.gif">
+                       <img class="type-img" src="/img/unit_types/{{item[col.field]}}.gif" [title]="item.typeName">
                     </div>
                 </ng-container>
                 
                 <!-- Name -->
                 <ng-container *ngIf="col.field === 'name'">
                     <div class="cell-wrapper">
-                        {{unit[col.field]}}
+                        <a href="{{item.url}}" target="_blank">{{item[col.field]}}</a>
                     </div>
                 </ng-container>
                 
                 <!-- Indicators -->
                 <ng-container *ngIf="col.field === 'indicators'">
                     <div class="cell-wrapper justify-content-end">
-                        <img *ngFor="let indicator of unit.indicators" src="/img/unit_indicator/{{indicator.kind}}.gif" [title]="indicator.name">
+                        <img *ngFor="let indicator of item.indicators" src="/img/unit_indicator/{{indicator.kind}}.gif" [title]="indicator.name">
                     </div>
                 </ng-container>
                 
                 <!-- Productivity -->
                 <ng-container *ngIf="col.field === 'productivity'">
-                    <div class="cell-wrapper justify-content-center {{productivityClass(unit[col.field])}}">
-                        <span>{{unit.productivityDisplay}}</span>
+                    <div class="cell-wrapper justify-content-center {{productivityClass(item[col.field])}}">
+                        <span>{{item.productivityDisplay}}</span>
                     </div>
                 </ng-container>
 
                 <!-- Productivity tomorrow -->
                 <ng-container *ngIf="col.field === 'productivityTomorrow'">
-                    <div class="cell-wrapper justify-content-center {{productivityClass(unit[col.field])}}">
-                        <span>{{unit.productivityTomorrowDisplay}}</span>
+                    <div class="cell-wrapper justify-content-center {{productivityClass(item[col.field])}}">
+                        <span>{{item.productivityTomorrowDisplay}}</span>
+                    </div>
+                </ng-container>
+
+                <!-- Size -->
+                <ng-container *ngIf="col.field === 'size'">
+                    <div class="cell-wrapper justify-content-end">
+                        <span>{{item[col.field]}}</span>
                     </div>
                 </ng-container>
 

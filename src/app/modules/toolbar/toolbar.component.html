@@ -1,0 +1,8 @@
+<!-- <div *ngFor="let unit of (selectedUnits | async)">{{unit.name}}</div> -->
+<div class="header">NNS - Toolbar</div>
+<div class="sub-header d-flex align-items-center">
+    <img *ngFor="let type of (selectedTypes | async)" src="/img/unit_types/{{type}}.gif">
+</div>
+
+<app-toolbar-price [enabled]="priceEnabled"></app-toolbar-price>
+<app-toolbar-supply [enabled]="supplyEnabled"></app-toolbar-supply>
