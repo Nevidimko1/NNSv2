@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { TableModule } from 'primeng/table';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { StoreModule, Store, select } from '@ngrx/store';
@@ -33,6 +34,7 @@ import { SupplyComponent } from './modules/toolbar/partials/supply/supply.compon
     ],
     imports: [
         BrowserModule,
+        FormsModule,
         HttpModule,
         NgbModule,
         TableModule,

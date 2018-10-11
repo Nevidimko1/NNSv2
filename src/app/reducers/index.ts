@@ -1,16 +1,14 @@
 import { GlobalsReducer } from './globals.reducer';
-import { globals, unitsTableColumnSettings, unitsList, unitsTable, price, supply } from '../shared/appState';
+import { globals, unitsTableColumnSettings, unitsList, unitsTable, unitsTypes } from '../shared/appState';
 import { UnitsTableColumnSettingsReducer } from '../modules/unitsTable/unitsTableColumnSettings.reducer';
 import { UnitsListReducer } from './unitsList.reducer';
 import { UnitsTableReducer } from '../modules/unitsTable/unitsTable.reducer';
-import { PriceReducer } from '../modules/toolbar/partials/price/price.reducer';
-import { SupplyReducer } from '../modules/toolbar/partials/supply/supply.reducer';
+import { UnitsTypesReducer } from './unitsTypes.reducer';
 
 export const Reducers = {
     [globals]: GlobalsReducer,
     [unitsList]: UnitsListReducer,
+    [unitsTypes]: UnitsTypesReducer,
     [unitsTableColumnSettings]: UnitsTableColumnSettingsReducer,
-    [unitsTable]: UnitsTableReducer,
-    [price]: PriceReducer,
-    [supply]: SupplyReducer
+    [unitsTable]: UnitsTableReducer
 };

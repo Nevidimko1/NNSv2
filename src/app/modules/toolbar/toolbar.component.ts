@@ -6,6 +6,9 @@ import { map } from 'rxjs/operators';
 import { AppState, unitsTable } from '../../shared/appState';
 import { UnitsTableItem } from '../unitsTable/models/unitsTableItem.model';
 import { UnitsTableState } from '../unitsTable/unitsTable.reducer';
+import { IPriceStrategy } from '../../models/strategy/priceStrategy.model';
+import { CommonUtils } from '../../utils/common.utils';
+import { ISupplyStrategy } from '../../models/strategy/supplyStrategy.model';
 
 @Component({
     selector: 'app-toolbar',
@@ -16,36 +19,27 @@ import { UnitsTableState } from '../unitsTable/unitsTable.reducer';
     ]
 })
 export class ToolbarComponent {
-    private readonly PRICE_UNIT_TYPES = ['shop', 'workshop', 'warehouse'];
-    private readonly SUPPLY_UNIT_TYPES = ['shop', 'workshop', 'warehouse'];
 
-    protected selectedUnits: Observable<UnitsTableItem[]>;
-    protected selectedTypes: Observable<string[]>;
-    protected priceEnabled: Observable<boolean>;
-    protected supplyEnabled: Observable<boolean>;
+    protected selectedUnits$: Observable<UnitsTableItem[]>;
+    protected selectedTypes$: Observable<string[]>;
 
     constructor(
         private store: Store<AppState>
     ) {
-        this.selectedUnits = this.store.pipe(
+        this.selectedUnits$ = this.store.pipe(
             select(unitsTable),
             map((state: UnitsTableState) => state.selected)
         );
 
-        this.selectedTypes = this.selectedUnits.pipe(
-            map((units: UnitsTableItem[]) => units.reduce((r, u) => {
-                if (r.indexOf(u.type) === -1) {
-                    r.push(u.type);
-                }
-                return r;
-            }, []))
-        );
-
-        this.priceEnabled = this.selectedTypes.pipe(
-            map(type => type.length && !type.filter(t => this.PRICE_UNIT_TYPES.indexOf(t) === -1).length)
-        );
-        this.supplyEnabled = this.selectedTypes.pipe(
-            map(type => type.length && !type.filter(t => this.SUPPLY_UNIT_TYPES.indexOf(t) === -1).length)
+        this.selectedTypes$ = this.selectedUnits$.pipe(
+            map((units: UnitsTableItem[]) => CommonUtils.uniqueValues(units, 'type'))
         );
     }
+
+    onPriceStrategyChange = (value: IPriceStrategy): void => console.log(value);
+    onMinPriceChange = (value: number): void => console.log(value);
+
+    onSupplyStrategyChange = (value: ISupplyStrategy): void => console.log(value);
+    onMinSupplyChange = (value: number): void => console.log(value);
+    onMaxSupplyValueChange = (value: number): void => console.log(value);
 }

@@ -1,11 +1,8 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { Store, select } from '@ngrx/store';
-import { Observable, Subscription } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Component, Output, EventEmitter } from '@angular/core';
 
-import { AppState, supply } from '../../../../shared/appState';
 import { SectionComponent } from '../../common/section.component';
-import { SupplyState, SupplyActions } from './supply.reducer';
+import { ISupplyStrategy } from '../../../../models/strategy/supplyStrategy.model';
+import { SupplyStrategies, MinSupplies, MaxSupplyValues } from './supply.config';
 
 @Component({
     selector: 'app-toolbar-supply',
@@ -16,27 +13,25 @@ import { SupplyState, SupplyActions } from './supply.reducer';
         './supply.component.less'
     ]
 })
-export class SupplyComponent extends SectionComponent implements OnInit, OnDestroy {
-    @Input() enabled: Observable<boolean>;
+export class SupplyComponent extends SectionComponent {
 
-    protected state$: Observable<SupplyState>;
+    @Output() strategyChanged = new EventEmitter<ISupplyStrategy>();
+    @Output() minChanged = new EventEmitter<number>();
+    @Output() maxValueChanged = new EventEmitter<number>();
 
-    private enabledSubscription: Subscription;
+    protected strategies: ISupplyStrategy[] = SupplyStrategies;
+    protected mins: number[] = MinSupplies;
+    protected maxValues: number[] = MaxSupplyValues;
 
-    constructor(
-        protected store: Store<AppState>
-    ) {
-        super(store, SupplyActions);
-        this.state$ = this.store.pipe(select(supply));
+    private selectedStrategy: ISupplyStrategy;
+    private selectedMin: number;
+    private selectedMaxValue: number;
+
+    constructor() {
+        super();
     }
 
-    ngOnInit() {
-        this.enabled.pipe(
-            map((enabled: boolean) => this.store.dispatch({ type: SupplyActions.UPDATE_ENABLED, payload: enabled }))
-        ).subscribe();
-    }
-
-    ngOnDestroy() {
-        this.enabledSubscription.unsubscribe();
-    }
+    onStrategyChange = () => this.strategyChanged.emit(this.selectedStrategy);
+    onMinChange = () => this.minChanged.emit(this.selectedMin);
+    onMaxValueChange = () => this.maxValueChanged.emit(this.selectedMaxValue);
 }
