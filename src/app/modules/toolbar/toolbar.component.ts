@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, first } from 'rxjs/operators';
 
 import { AppState, unitsTable } from '../../shared/appState';
 import { UnitsTableItem } from '../unitsTable/models/unitsTableItem.model';
-import { UnitsTableState } from '../unitsTable/unitsTable.reducer';
+import { UnitsTableState, UnitsTableActions } from '../unitsTable/unitsTable.reducer';
 import { IPriceStrategy } from '../../models/strategy/priceStrategy.model';
 import { CommonUtils } from '../../utils/common.utils';
 import { ISupplyStrategy } from '../../models/strategy/supplyStrategy.model';
@@ -36,10 +36,19 @@ export class ToolbarComponent {
         );
     }
 
-    onPriceStrategyChange = (value: IPriceStrategy): void => console.log(value);
-    onMinPriceChange = (value: number): void => console.log(value);
+    private update = (action: string, value: any): void => {
+        this.selectedUnits$.pipe(
+            first(),
+            map((items: UnitsTableItem[]) => items.forEach((item: UnitsTableItem) => this.store.dispatch(
+                { type: action, payload: { id: item.id, value } }
+            )))
+        ).subscribe();
+    }
 
-    onSupplyStrategyChange = (value: ISupplyStrategy): void => console.log(value);
-    onMinSupplyChange = (value: number): void => console.log(value);
-    onMaxSupplyValueChange = (value: number): void => console.log(value);
+    onPriceStrategyChange = (value: IPriceStrategy): void => this.update(UnitsTableActions.SET_PRICE_STRATEGY, value);
+    onMinPriceChange = (value: number): void => this.update(UnitsTableActions.SET_PRICE_MIN, value);
+
+    onSupplyStrategyChange = (value: ISupplyStrategy): void => this.update(UnitsTableActions.SET_SUPPLY_STRATEGY, value);
+    onMinSupplyChange = (value: number): void => this.update(UnitsTableActions.SET_SUPPLY_MIN, value);
+    onMaxSupplyValueChange = (value: number): void => this.update(UnitsTableActions.SET_SUPPLY_MAX_VALUE, value);
 }

@@ -8,15 +8,13 @@ const defaultColumns: IColumnData[] = [
         name: 'C',
         title: 'Country',
         width: '38px',
-        headerClass: 'text-center',
-        class: 'b-right'
+        headerClass: 'text-center'
     },
     {
         field: 'cityName',
         fieldToSort: 'cityName',
         name: 'City',
-        width: '100px',
-        class: 'b-right'
+        width: '100px'
     },
     {
         field: 'type',
@@ -25,21 +23,19 @@ const defaultColumns: IColumnData[] = [
         title: 'Type',
         width: '36px',
         headerClass: 'text-center',
-        class: 'b-right p-0'
+        class: 'p-0'
     },
     {
         field: 'name',
         fieldToSort: 'name',
         name: 'Name',
-        width: null,
-        class: ''
+        width: null
     },
     {
         field: 'indicators',
         fieldToSort: 'indicators',
         name: 'Ind',
-        width: '70px',
-        class: 'b-right'
+        width: '70px'
     },
     {
         field: 'productivity',
@@ -47,7 +43,7 @@ const defaultColumns: IColumnData[] = [
         name: 'Eff',
         title: 'Efficiency',
         width: '50px',
-        class: 'b-right p-0 text-center'
+        class: 'p-0 text-center'
     },
     {
         field: 'productivityTomorrow',
@@ -55,14 +51,19 @@ const defaultColumns: IColumnData[] = [
         name: 'EffT',
         title: 'Efficiency tomorrow',
         width: '50px',
-        class: 'b-right p-0 text-center'
+        class: 'p-0 text-center'
     },
     {
-        field: 'size',
-        fieldToSort: 'size',
-        name: 'Size',
-        width: '50px',
-        class: 'b-right'
+        field: 'priceConfig',
+        fieldToSort: 'priceConfig',
+        name: 'Price',
+        width: '55px'
+    },
+    {
+        field: 'supplyConfig',
+        fieldToSort: 'supplyConfig',
+        name: 'Supply',
+        width: '65px'
     }
 ];
 

@@ -9,8 +9,7 @@ import { SupplyStrategies, MinSupplies, MaxSupplyValues } from './supply.config'
     templateUrl: './supply.component.html',
     styleUrls: [
         '../../../../../../node_modules/bootstrap/dist/css/bootstrap.min.css',
-        '../../common/styles/card.less',
-        './supply.component.less'
+        '../../common/styles/card.less'
     ]
 })
 export class SupplyComponent extends SectionComponent {

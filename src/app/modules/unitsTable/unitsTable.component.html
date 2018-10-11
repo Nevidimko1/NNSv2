@@ -20,7 +20,7 @@
     <ng-template pTemplate="body" let-item let-columns="columns" let-rowIndex="rowIndex">
         <tr class="position-relative" [pSelectableRow]="item" [pSelectableRowIndex]="rowIndex">
 
-            <td *ngFor="let col of columns" [class]="'position-relative ' + col.class">
+            <td *ngFor="let col of columns" [class]="'position-relative b-right ' + col.class">
                     
                 <!-- Country -->
                 <ng-container *ngIf="col.field === 'country'">
@@ -71,9 +71,16 @@
                     </div>
                 </ng-container>
 
-                <!-- Size -->
-                <ng-container *ngIf="col.field === 'size'">
-                    <div class="cell-wrapper justify-content-end">
+                <!-- Price -->
+                <ng-container *ngIf="col.field === 'priceConfig'">
+                    <div class="cell-wrapper">
+                        <span>{{item[col.field]}}</span>
+                    </div>
+                </ng-container>
+
+                <!-- Supply -->
+                <ng-container *ngIf="col.field === 'supplyConfig'">
+                    <div class="cell-wrapper">
                         <span>{{item[col.field]}}</span>
                     </div>
                 </ng-container>

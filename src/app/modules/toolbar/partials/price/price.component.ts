@@ -9,8 +9,7 @@ import { SectionComponent } from '../../common/section.component';
     templateUrl: './price.component.html',
     styleUrls: [
         '../../../../../../node_modules/bootstrap/dist/css/bootstrap.min.css',
-        '../../common/styles/card.less',
-        './price.component.less'
+        '../../common/styles/card.less'
     ]
 })
 export class PriceComponent extends SectionComponent {
