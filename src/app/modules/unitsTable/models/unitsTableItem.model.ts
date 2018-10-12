@@ -38,22 +38,14 @@ export class UnitsTableItem {
     get priceState(): PriceState                { return this._priceState; }
     get supplyState(): SupplyState              { return this._supplyState; }
 
-    private get priceConfigStrategy(): string   { return this._priceState.strategy ? this._priceState.strategy.shortName : ''; }
-    private get priceConfigMin(): string        { return this._priceState.min != null ? this._priceState.min.toString() : ' '; }
-    get priceConfig(): string                   {
-        if (!this.priceConfigStrategy) {
-            return '';
-        }
-        return `${this.priceConfigStrategy}|${this.priceConfigMin}`;
-    }
+    get priceStrategy(): string                 { return this._priceState.strategy ? this._priceState.strategy.shortName : ''; }
+    get priceMinDisplay(): string               { return this._priceState.min ? `|${this.priceState.min.shortName}` : ''; }
+    get priceConfig(): string                   { return (this.priceStrategy + this.priceMinDisplay) || ''; }
 
-    private get supplyConfigStrategy(): string  { return this._supplyState.strategy ? this._supplyState.strategy.shortName : ''; }
-    private get supplyConfigMin(): string       { return this._supplyState.min != null ? this._supplyState.min.toString() : ' '; }
-    private get supplyConfigMaxValue(): string  { return this._supplyState.maxValue != null ? this._supplyState.maxValue.toString() : ' '; }
-    get supplyConfig(): string                  {
-        if (!this.supplyConfigStrategy) {
-            return '';
-        }
-        return `${this.supplyConfigStrategy}|${this.supplyConfigMin}|${this.supplyConfigMaxValue}`;
-    }
+    get supplyStrategy(): string                { return this._supplyState.strategy ? this._supplyState.strategy.shortName : ''; }
+    get supplyMin(): number                     { return this._supplyState.min ? this._supplyState.min.value : null; }
+    get supplyMinDisplay(): string              { return this._supplyState.min ? `|${this._supplyState.min.shortName}` : ''; }
+    get supplyMaxValue(): number                { return this._supplyState.maxValue ? this._supplyState.maxValue.value : null; }
+    get supplyMaxValueDisplay(): string         { return this._supplyState.maxValue ? `|${this._supplyState.maxValue.shortName}` : ''; }
+    get supplyConfig(): string                  { return (this.supplyStrategy + this.supplyMinDisplay + this.supplyMaxValueDisplay) || ''; }
 }

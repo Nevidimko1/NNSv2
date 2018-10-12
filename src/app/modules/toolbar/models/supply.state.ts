@@ -1,7 +1,8 @@
 import { ISupplyStrategy } from '../../../models/strategy/supplyStrategy.model';
+import { INumericConfig } from 'src/app/models/strategy/numericConfig.model';
 
 export class SupplyState {
     strategy: ISupplyStrategy;
-    min: number;
-    maxValue: number;
+    min: INumericConfig;
+    maxValue: INumericConfig;
 }

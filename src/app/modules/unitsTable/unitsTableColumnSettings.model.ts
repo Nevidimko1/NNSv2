@@ -63,7 +63,7 @@ const defaultColumns: IColumnData[] = [
         field: 'supplyConfig',
         fieldToSort: 'supplyConfig',
         name: 'Supply',
-        width: '65px'
+        width: '80px'
     }
 ];
 

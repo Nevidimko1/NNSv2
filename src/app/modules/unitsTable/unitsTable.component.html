@@ -74,14 +74,14 @@
                 <!-- Price -->
                 <ng-container *ngIf="col.field === 'priceConfig'">
                     <div class="cell-wrapper">
-                        <span>{{item[col.field]}}</span>
+                        <span *ngIf="item[col.field]">{{item[col.field]}}</span>
                     </div>
                 </ng-container>
 
                 <!-- Supply -->
                 <ng-container *ngIf="col.field === 'supplyConfig'">
                     <div class="cell-wrapper">
-                        <span>{{item[col.field]}}</span>
+                        <span *ngIf="item[col.field]">{{item[col.field]}}</span>
                     </div>
                 </ng-container>
 

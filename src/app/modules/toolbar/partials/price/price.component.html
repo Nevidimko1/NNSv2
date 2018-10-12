@@ -22,7 +22,7 @@
                 <div class="col-sm-8">
                     <select class="form-control form-control-sm" name="min" [(ngModel)]="selectedMin" (change)="onMinChange()">
                         <option></option>
-                        <option *ngFor="let min of mins" [ngValue]="min">{{min}}</option>
+                        <option *ngFor="let min of mins" [ngValue]="min">{{min.name}}</option>
                     </select>
                 </div>
             </div>
