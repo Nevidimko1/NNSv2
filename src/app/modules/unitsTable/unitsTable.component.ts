@@ -9,6 +9,7 @@ import { Column } from '../../models/table/column.model';
 import { UnitsTableService } from './unitsTable.service';
 import { UnitsTableItem } from './models/unitsTableItem.model';
 import { UnitsTableState } from './unitsTable.reducer';
+import { SettingsService } from '../shared/services/settings.service';
 
 @Component({
     selector: 'app-units-table',
@@ -18,7 +19,8 @@ import { UnitsTableState } from './unitsTable.reducer';
         './unitsTable.component.less'
     ],
     providers: [
-        UnitsTableService
+        UnitsTableService,
+        SettingsService
     ]
 })
 export class UnitsTableComponent {

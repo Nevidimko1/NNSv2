@@ -1,6 +1,6 @@
-import { UnitProduct } from '../../../../../models/unitInfo/unitProduct.model';
-import { UNIT_TYPES } from '../../../../../shared/unitTypes.enum';
-import { ISupplyStrategy } from '../../../../../models/strategy/supplyStrategy.model';
+import { UnitProduct } from '../../../../models/unitInfo/unitProduct.model';
+import { UNIT_TYPES } from '../../../../shared/unitTypes.enum';
+import { ISupplyStrategy } from '../../../../models/strategy/supplyStrategy.model';
 
 export class Sold3SupplyStrategy implements ISupplyStrategy {
 

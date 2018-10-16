@@ -1,6 +1,6 @@
-import { UnitProduct } from '../../../../../models/unitInfo/unitProduct.model';
-import { CalcFunctions } from '../../../../../shared/calcFunctions';
-import { NumberUtils } from '../../../../../utils/number.utils';
+import { UnitProduct } from '../../../../models/unitInfo/unitProduct.model';
+import { CalcFunctions } from '../../../../shared/calcFunctions';
+import { NumberUtils } from '../../../../utils/number.utils';
 
 export class SharedPriceStrategy {
 

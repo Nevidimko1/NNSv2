@@ -1,6 +1,6 @@
 import { Component, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 
-import { PriceStrategies, MinPrices } from './price.config';
+import { PriceStrategies, MinPrices } from '../../../shared/configs/price.config';
 import { IPriceStrategy } from '../../../../models/strategy/priceStrategy.model';
 import { SectionComponent } from '../../common/section.component';
 import { INumericConfig } from 'src/app/models/strategy/numericConfig.model';

@@ -1,6 +1,6 @@
-import { IPriceStrategy } from '../../../../../models/strategy/priceStrategy.model';
-import { UnitProduct } from '../../../../../models/unitInfo/unitProduct.model';
-import { UNIT_TYPES } from '../../../../../shared/unitTypes.enum';
+import { IPriceStrategy } from '../../../../models/strategy/priceStrategy.model';
+import { UnitProduct } from '../../../../models/unitInfo/unitProduct.model';
+import { UNIT_TYPES } from '../../../../shared/unitTypes.enum';
 
 export class ZeroPriceStrategy implements IPriceStrategy {
 

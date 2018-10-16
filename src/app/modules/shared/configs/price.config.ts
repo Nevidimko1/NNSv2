@@ -1,7 +1,7 @@
-import { IPriceStrategy } from '../../../../models/strategy/priceStrategy.model';
-import { ZeroPriceStrategy } from '../../common/strategies/price/zeroPrice.strategy';
-import { Market10pPriceStrategy } from '../../common/strategies/price/market10pPrice.strategy';
-import { Market20pPriceStrategy } from '../../common/strategies/price/market20pPrice.strategy';
+import { IPriceStrategy } from '../../../models/strategy/priceStrategy.model';
+import { ZeroPriceStrategy } from '../strategies/price/zeroPrice.strategy';
+import { Market10pPriceStrategy } from '../strategies/price/market10pPrice.strategy';
+import { Market20pPriceStrategy } from '../strategies/price/market20pPrice.strategy';
 import { INumericConfig } from 'src/app/models/strategy/numericConfig.model';
 
 export const PriceStrategies: IPriceStrategy[] = [

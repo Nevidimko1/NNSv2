@@ -1,7 +1,7 @@
-import { ISupplyStrategy } from '../../../../models/strategy/supplyStrategy.model';
-import { ZeroSupplyStrategy } from '../../common/strategies/supply/zeroSupply.strategy';
-import { Sold2SupplyStrategy } from '../../common/strategies/supply/sold2Supply.strategy';
-import { Sold3SupplyStrategy } from '../../common/strategies/supply/sold3Supply.strategy';
+import { ISupplyStrategy } from '../../../models/strategy/supplyStrategy.model';
+import { ZeroSupplyStrategy } from '../strategies/supply/zeroSupply.strategy';
+import { Sold2SupplyStrategy } from '../strategies/supply/sold2Supply.strategy';
+import { Sold3SupplyStrategy } from '../strategies/supply/sold3Supply.strategy';
 import { INumericConfig } from 'src/app/models/strategy/numericConfig.model';
 
 export const SupplyStrategies: ISupplyStrategy[] = [

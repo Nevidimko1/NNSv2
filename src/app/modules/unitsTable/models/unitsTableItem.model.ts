@@ -1,7 +1,7 @@
 import { Unit } from '../../../models/unitInfo/unit.model';
 import { UnitIndicator } from '../../../models/unitInfo/unitIndicator.model';
-import { PriceState } from '../../toolbar/models/price.state';
-import { SupplyState } from '../../toolbar/models/supply.state';
+import { PriceState } from '../../shared/models/price.state';
+import { SupplyState } from '../../shared/models/supply.state';
 
 export class UnitsTableItem {
     private _info: Unit;

@@ -2,7 +2,7 @@ import { Component, Output, EventEmitter, OnChanges, SimpleChanges } from '@angu
 
 import { SectionComponent } from '../../common/section.component';
 import { ISupplyStrategy } from '../../../../models/strategy/supplyStrategy.model';
-import { SupplyStrategies, MinSupplies, MaxSupplyValues } from './supply.config';
+import { SupplyStrategies, MinSupplies, MaxSupplyValues } from '../../../shared/configs/supply.config';
 import { INumericConfig } from 'src/app/models/strategy/numericConfig.model';
 import { CommonUtils } from 'src/app/utils/common.utils';
 import { UnitsTableItem } from 'src/app/modules/unitsTable/models/unitsTableItem.model';

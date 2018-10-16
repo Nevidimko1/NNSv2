@@ -1,5 +1,6 @@
 import { UnitsTableItem } from './models/unitsTableItem.model';
 import { Unit } from '../../models/unitInfo/unit.model';
+import { LS } from 'src/app/utils/storage.utils';
 
 export const UnitsTableActions = {
     INIT: 'UnitsTableActions.INIT',
@@ -29,7 +30,7 @@ export function UnitsTableReducer(state = defaultState, action: any): UnitsTable
         case UnitsTableActions.INIT: {
             return {
                 ...state,
-                values: action.payload.map((unit: Unit) => new UnitsTableItem(unit))
+                values: action.payload
             };
         }
 
