@@ -39,13 +39,13 @@ export class UnitsTableItem {
     get supplyState(): SupplyState              { return this._supplyState; }
 
     get priceStrategy(): string                 { return this._priceState.strategy ? this._priceState.strategy.shortName : ''; }
-    get priceMinDisplay(): string               { return this._priceState.min ? `|${this.priceState.min.shortName}` : ''; }
+    get priceMinDisplay(): string               { return this._priceState.min ? `${this.priceState.min.shortName}` : ''; }
     get priceConfig(): string                   { return (this.priceStrategy + this.priceMinDisplay) || ''; }
 
     get supplyStrategy(): string                { return this._supplyState.strategy ? this._supplyState.strategy.shortName : ''; }
     get supplyMin(): number                     { return this._supplyState.min ? this._supplyState.min.value : null; }
-    get supplyMinDisplay(): string              { return this._supplyState.min ? `|${this._supplyState.min.shortName}` : ''; }
+    get supplyMinDisplay(): string              { return this._supplyState.min ? `${this._supplyState.min.shortName}` : ''; }
     get supplyMaxValue(): number                { return this._supplyState.maxValue ? this._supplyState.maxValue.value : null; }
-    get supplyMaxValueDisplay(): string         { return this._supplyState.maxValue ? `|${this._supplyState.maxValue.shortName}` : ''; }
+    get supplyMaxValueDisplay(): string         { return this._supplyState.maxValue ? `${this._supplyState.maxValue.shortName}` : ''; }
     get supplyConfig(): string                  { return (this.supplyStrategy + this.supplyMinDisplay + this.supplyMaxValueDisplay) || ''; }
 }

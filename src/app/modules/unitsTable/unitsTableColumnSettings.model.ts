@@ -57,13 +57,20 @@ const defaultColumns: IColumnData[] = [
         field: 'priceConfig',
         fieldToSort: 'priceConfig',
         name: 'Price',
-        width: '55px'
+        width: '65px'
     },
     {
         field: 'supplyConfig',
         fieldToSort: 'supplyConfig',
         name: 'Supply',
-        width: '80px'
+        width: '90px'
+    },
+    {
+        field: 'status',
+        fieldToSort: 'status',
+        name: '',
+        title: 'Status',
+        width: '30px'
     }
 ];
 

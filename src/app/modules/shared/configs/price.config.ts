@@ -12,9 +12,9 @@ export const PriceStrategies: IPriceStrategy[] = [
 
 export const MinPrices: INumericConfig[] = [
     { name: '0', shortName: '0', value: 0 },
-    { name: '1', shortName: '1', value: 1 },
-    { name: '1.1', shortName: '1.1', value: 1.1 },
-    { name: '1.4', shortName: '1.4', value: 1.4 },
-    { name: '1.5', shortName: '1.5', value: 1.5 },
-    { name: '2', shortName: '2', value: 2 },
+    { name: '100%', shortName: '100%', value: 1 },
+    { name: '110%', shortName: '110%', value: 1.1 },
+    { name: '140%', shortName: '140%', value: 1.4 },
+    { name: '150%', shortName: '150%', value: 1.5 },
+    { name: '200%', shortName: '200%', value: 2 },
 ];

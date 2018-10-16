@@ -8,7 +8,7 @@ export class Market10pPriceStrategy extends SharedPriceStrategy implements IPric
     public readonly id = 'Market10pPriceStrategy';
     public readonly types = [UNIT_TYPES.SHOP];
     public readonly name = 'Market 10%';
-    public readonly shortName = '10%';
+    public readonly shortName = 'M10';
 
     constructor() {
         super();

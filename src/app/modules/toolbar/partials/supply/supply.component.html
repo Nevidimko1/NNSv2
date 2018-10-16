@@ -1,5 +1,5 @@
-<div class="card">
-    <div class="card-header d-flex" [ngClass]="{'disabled': !enabled}" (click)="expand = !expand">
+<div class="card" *ngIf="enabled">
+    <div class="card-header d-flex" (click)="expand = !expand">
         <div class="flex-grow">Supply</div>
         <div class="icons d-flex align-items-center">
             <span class="fa fa-caret-down" aria-hidden="true" *ngIf="!expand"></span>
