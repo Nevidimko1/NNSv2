@@ -20,6 +20,8 @@ export interface IUnit extends IBase {
     unitClassKind: string;
     productivity: number;
     productivityTomorrow: number;
+    top1: number;
+    top3: number;
     notice: string;
     products: UnitProduct[];
     marketStatus: string;
@@ -33,6 +35,8 @@ export class Unit extends Base {
     constructor(protected _data: IUnit) {
         super(_data);
     }
+
+    set productivityTomorrow(value: number) {   this._data.productivityTomorrow = value; }
 
     get countrySymbol(): string {       return this._data.countrySymbol; }
     get countryName(): string {         return this._data.countryName; }
@@ -51,6 +55,8 @@ export class Unit extends Base {
     get unitClassKind(): string {       return this._data.unitClassKind; }
     get productivity(): number {        return this._data.productivity; }
     get productivityTomorrow(): number {return this._data.productivityTomorrow; }
+    get top1(): number {                return this._data.top1; }
+    get top3(): number {                return this._data.top3; }
     get notice(): string {              return this._data.notice; }
     get products(): UnitProduct[] {     return this._data.products; }
     get marketStatus(): string {        return this._data.marketStatus; }

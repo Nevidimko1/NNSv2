@@ -21,10 +21,15 @@ import { ToolbarComponent } from './modules/toolbar/toolbar.component';
 import { LetDirective } from './directives/ngLet.directive';
 import { PriceComponent } from './modules/toolbar/partials/price/price.component';
 import { SupplyComponent } from './modules/toolbar/partials/supply/supply.component';
+import { ControlPanelComponent } from './modules/controlPanel/controlPanel.component';
+import { ApiService } from './shared/services/api.service';
+import { ForecastParser } from './shared/parsers/forecast.parser';
+import { UnitSummaryParser } from './shared/parsers/unitSummary.parser';
 
 @NgModule({
     declarations: [
         LetDirective,
+        ControlPanelComponent,
         AppComponent,
         ToolbarComponent,
         UnitsTableComponent,
@@ -41,8 +46,11 @@ import { SupplyComponent } from './modules/toolbar/partials/supply/supply.compon
         StoreModule.forRoot(Reducers)
     ],
     providers: [
+        ApiService,
         UnitsListParser,
         UnitsTypesParser,
+        ForecastParser,
+        UnitSummaryParser,
         GlobalsService,
         UnitsListService,
         UnitsTypesService

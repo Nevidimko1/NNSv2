@@ -5,20 +5,17 @@ import { SupplyState } from '../../shared/models/supply.state';
 
 export class UnitsTableItem {
     private _info: Unit;
-    private _productivityDisplay: string;
-    private _productivityTomorrowDisplay: string;
+
     private _priceState: PriceState;
     private _supplyState: SupplyState;
 
     constructor(info: Unit) {
         this._info = info;
-        this._productivityDisplay = Math.floor(this._info.productivity * 100) + '%';
-        this._productivityTomorrowDisplay = this._info.productivityTomorrow != null ?
-            Math.floor(this._info.productivityTomorrow * 100) + '%' : '?';
-
         this._priceState = new PriceState();
         this._supplyState = new SupplyState();
     }
+
+    get info(): Unit                            { return this._info; }
 
     get id(): number                            { return this._info.id; }
     get name(): string                          { return this._info.name; }
@@ -28,10 +25,18 @@ export class UnitsTableItem {
     get countryName(): string                   { return this._info.countryName; }
     get cityName(): string                      { return this._info.cityName; }
     get indicators(): UnitIndicator[]           { return this._info.indicators; }
+
     get productivity(): number                  { return this._info.productivity; }
-    get productivityDisplay(): string           { return this._productivityDisplay; }
+    get productivityDisplay(): string           { return Math.floor(this._info.productivity * 100) + '%'; }
+
     get productivityTomorrow(): number          { return this._info.productivityTomorrow; }
-    get productivityTomorrowDisplay(): string   { return this._productivityTomorrowDisplay; }
+    get productivityTomorrowDisplay(): string {
+        return this._info.productivityTomorrow != null ? Math.floor(this._info.productivityTomorrow * 100) + '%' : '?';
+    }
+
+    get top1Display(): string                   { return this._info.top1 != null ? Math.floor(this._info.top1 * 100) + '%' : '?'; }
+    get top3Display(): string                   { return this._info.top3 != null ? Math.floor(this._info.top3 * 100) + '%' : '?'; }
+
     get size(): number                          { return this._info.size; }
     get url(): string                           { return this._info.url; }
 

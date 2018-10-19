@@ -54,6 +54,20 @@ const defaultColumns: IColumnData[] = [
         class: 'p-0 text-center'
     },
     {
+        field: 'top1',
+        fieldToSort: 'top1',
+        name: 'TOP1',
+        width: '60px',
+        class: 'p-0 text-center'
+    },
+    {
+        field: 'top3',
+        fieldToSort: 'top3',
+        name: 'TOP3',
+        width: '60px',
+        class: 'p-0 text-center'
+    },
+    {
         field: 'priceConfig',
         fieldToSort: 'priceConfig',
         name: 'Price',

@@ -1,0 +1,30 @@
+@mainColor: #ccc;
+
+:host {
+    position: relative;
+    display: flex;
+    align-items: stretch;
+    margin-top: 6px;
+    border-top: 1px solid @mainColor;
+    border-bottom: 1px solid @mainColor;
+    padding: 2px 5px;
+}
+
+.separator {
+    margin: -2px 5px;
+    width: 1px;
+    background-color: @mainColor;
+}
+
+.section {
+    display: flex;
+    align-items: center;
+}
+
+.actions > *:not(:last-child) {
+    margin-right: 3px;
+}
+
+.info > *:not(:last-child) {
+    margin-right: 10px;
+}

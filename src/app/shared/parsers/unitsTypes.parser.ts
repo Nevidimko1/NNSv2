@@ -1,9 +1,12 @@
+import { Injectable } from '@angular/core';
+import { Observable, of } from 'rxjs';
+
 import { CommonUtils } from '../../utils/common.utils';
-import { Response } from '@angular/http';
 import { Parser } from './parser';
 import { UnitType } from '../../models/unitType/unitType.model';
 import { IUnitTypesResponseItem, IUnitTypesResponse } from '../../models/unitType/unitTypeResponse.model';
 
+@Injectable()
 export class UnitsTypesParser extends Parser {
     protected error = 'Failed to parse Units types response';
 
@@ -11,14 +14,13 @@ export class UnitsTypesParser extends Parser {
         super();
     }
 
-    public parse = (response: Response): UnitType[] => {
-        const body = response.json();
-        this.diff(body, IUnitTypesResponse);
+    public parse = (response: IUnitTypesResponse): Observable<UnitType[]> => {
+        this.diff(response, IUnitTypesResponse);
 
-        const data = CommonUtils.flatMap(body);
+        const data = CommonUtils.flatMap(response);
         this.diff(data[0], IUnitTypesResponseItem);
 
-        return data.map((responseItem: IUnitTypesResponseItem) => new UnitType({
+        return of(data.map((responseItem: IUnitTypesResponseItem) => new UnitType({
             id: Number(responseItem.id),
             industryId: Number(responseItem.industry_id),
             classId: Number(responseItem.class_id),
@@ -32,6 +34,6 @@ export class UnitsTypesParser extends Parser {
             equipmentMax: Number(responseItem.equipment_max),
             square: Number(responseItem.square),
             buildingTime: Number(responseItem.building_time)
-        }));
+        })));
     }
 }

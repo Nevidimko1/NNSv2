@@ -5,6 +5,7 @@ import { UnitsTypesService } from './shared/services/unitsTypes.service';
 @Component({
     selector: 'app-root',
     template: `
+        <app-control-panel></app-control-panel>
         <app-units-table class="d-flex flex-column"></app-units-table>
     `,
     styles: [`

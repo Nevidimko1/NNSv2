@@ -70,6 +70,20 @@
                         <span>{{item.productivityTomorrowDisplay}}</span>
                     </div>
                 </ng-container>
+                
+                <!-- TOP1 -->
+                <ng-container *ngIf="col.field === 'top1'">
+                    <div class="cell-wrapper justify-content-center {{productivityClass(item[col.field])}}">
+                        <span>{{item.top1Display}}</span>
+                    </div>
+                </ng-container>
+                
+                <!-- TOP3 -->
+                <ng-container *ngIf="col.field === 'top3'">
+                    <div class="cell-wrapper justify-content-center {{productivityClass(item[col.field])}}">
+                        <span>{{item.top3Display}}</span>
+                    </div>
+                </ng-container>
 
                 <!-- Price -->
                 <ng-container *ngIf="col.field === 'priceConfig'">
