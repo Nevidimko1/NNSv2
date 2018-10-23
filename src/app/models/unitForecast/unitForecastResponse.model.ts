@@ -1,4 +1,4 @@
-export class IForecastResponse {
+export class IUnitForecastResponse {
     employee_productivity: string;
     equipment_productivity: string;
     loading: string;

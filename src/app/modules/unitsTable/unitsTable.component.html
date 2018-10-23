@@ -25,62 +25,62 @@
                 <!-- Country -->
                 <ng-container *ngIf="col.field === 'country'">
                     <div class="cell-wrapper justify-content-center">
-                        <img src="/img/flag/{{item.countrySymbol}}.png" [title]="item.countryName">
+                        <img src="/img/flag/{{item.info.countrySymbol}}.png" [title]="item.info.countryName">
                     </div>
                 </ng-container>
                 
                 <!-- City -->
                 <ng-container *ngIf="col.field === 'cityName'">
                     <div class="cell-wrapper">
-                        {{item[col.field]}}
+                        {{item.info.cityName}}
                     </div>
                 </ng-container>
                 
                 <!-- Type -->
                 <ng-container *ngIf="col.field === 'type'">
                     <div class="cell-wrapper p-1px justify-content-center">
-                       <img class="type-img" src="/img/unit_types/{{item[col.field]}}.gif" [title]="item.typeName">
+                       <img class="type-img" src="/img/unit_types/{{item.info.unitTypeSymbol}}.gif" [title]="item.info.unitTypeName">
                     </div>
                 </ng-container>
                 
                 <!-- Name -->
                 <ng-container *ngIf="col.field === 'name'">
                     <div class="cell-wrapper">
-                        <a href="{{item.url}}" target="_blank">{{item[col.field]}}</a>
+                        <a href="{{item.info.url}}" target="_blank">{{item.info.name}}</a>
                     </div>
                 </ng-container>
                 
                 <!-- Indicators -->
                 <ng-container *ngIf="col.field === 'indicators'">
                     <div class="cell-wrapper justify-content-end">
-                        <img *ngFor="let indicator of item.indicators" src="/img/unit_indicator/{{indicator.kind}}.gif" [title]="indicator.name">
+                        <img *ngFor="let indicator of item.info.indicators" src="/img/unit_indicator/{{indicator.kind}}.gif" [title]="indicator.name">
                     </div>
                 </ng-container>
                 
                 <!-- Productivity -->
                 <ng-container *ngIf="col.field === 'productivity'">
-                    <div class="cell-wrapper justify-content-center {{productivityClass(item[col.field])}}">
+                    <div class="cell-wrapper justify-content-center {{productivityClass(item.info.productivity)}}">
                         <span>{{item.productivityDisplay}}</span>
                     </div>
                 </ng-container>
 
                 <!-- Productivity tomorrow -->
                 <ng-container *ngIf="col.field === 'productivityTomorrow'">
-                    <div class="cell-wrapper justify-content-center {{productivityClass(item[col.field])}}">
+                    <div class="cell-wrapper justify-content-center {{productivityClass(item.productivityTomorrow)}}">
                         <span>{{item.productivityTomorrowDisplay}}</span>
                     </div>
                 </ng-container>
                 
                 <!-- TOP1 -->
                 <ng-container *ngIf="col.field === 'top1'">
-                    <div class="cell-wrapper justify-content-center {{productivityClass(item[col.field])}}">
+                    <div class="cell-wrapper justify-content-center {{productivityClass(item.common?.top1)}}">
                         <span>{{item.top1Display}}</span>
                     </div>
                 </ng-container>
                 
                 <!-- TOP3 -->
                 <ng-container *ngIf="col.field === 'top3'">
-                    <div class="cell-wrapper justify-content-center {{productivityClass(item[col.field])}}">
+                    <div class="cell-wrapper justify-content-center {{productivityClass(item.common?.top3)}}">
                         <span>{{item.top3Display}}</span>
                     </div>
                 </ng-container>

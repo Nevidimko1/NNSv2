@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map, flatMap, first } from 'rxjs/operators';
@@ -15,6 +15,7 @@ import { ControlPanelService } from './controlPanel.service';
         '../../../../node_modules/bootstrap/dist/css/bootstrap.min.css',
         './controlPanel.component.less'
     ],
+    changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [
         ControlPanelService
     ]

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Parser } from './parser';
-import { IForecastResponse } from 'src/app/models/forecast/forecastResponse.model';
-import { Forecast } from 'src/app/models/forecast/forecast.model';
+import { IUnitForecastResponse } from 'src/app/models/unitForecast/unitForecastResponse.model';
+import { UnitForecast } from 'src/app/models/unitForecast/unitForecast.model';
 
 @Injectable()
 export class ForecastParser extends Parser {
@@ -25,8 +25,8 @@ export class ForecastParser extends Parser {
         response could be 'false' in some cases (e.g. employees are on vacation)
         so don't check poperty match
     */
-    public parse = (response: IForecastResponse): Forecast => {
-        return {
+    public parse = (response: IUnitForecastResponse): UnitForecast => {
+        return new UnitForecast({
             employeeProductivity: this.parseValue(response.employee_productivity),
             equipmentProductivity: this.parseValue(response.equipment_productivity),
             loading: this.parseValue(response.loading),
@@ -37,6 +37,6 @@ export class ForecastParser extends Parser {
             turnId: this.parseValue(response.turn_id),
             unitComplexity: this.parseValue(response.unit_complexity),
             unitId: this.parseValue(response.unit_id)
-        };
+        });
     }
 }

@@ -4,3 +4,4 @@ export const unitTypesListUrl = (realm: string): string => `/api/${realm}/main/u
 export const unitListUrl = (realm: string, id: number) => `/api/${realm}/main/company/units?id=${id}&pagesize=${new Date().getTime()}`;
 
 export const forecastUrl = (realm: string) => `/${realm}/ajax/unit/forecast`;
+export const summaryUrl = (realm: string, id: number) => `/api/${realm}/main/unit/summary?id=${id}`;

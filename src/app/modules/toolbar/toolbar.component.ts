@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map, first, flatMap } from 'rxjs/operators';
@@ -18,6 +18,7 @@ import { SettingsService } from '../shared/services/settings.service';
         '../../../../node_modules/bootstrap/dist/css/bootstrap.min.css',
         './toolbar.component.less'
     ],
+    changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [
         SettingsService
     ]
@@ -37,7 +38,8 @@ export class ToolbarComponent {
         );
 
         this.selectedTypes$ = this.selectedUnits$.pipe(
-            map((units: UnitsTableItem[]) => CommonUtils.uniqueValues(units, 'type'))
+            map((units: UnitsTableItem[]) => units.map(unit => unit.info)),
+            map(infos => CommonUtils.uniqueValues(infos, 'unitTypeSymbol'))
         );
     }
 

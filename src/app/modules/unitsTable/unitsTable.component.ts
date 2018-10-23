@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -18,6 +18,7 @@ import { SettingsService } from '../shared/services/settings.service';
         '../../../../node_modules/bootstrap/dist/css/bootstrap.min.css',
         './unitsTable.component.less'
     ],
+    changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [
         UnitsTableService,
         SettingsService
@@ -52,7 +53,7 @@ export class UnitsTableComponent {
             return 'status-danger';
         } else if (productivity >= 0.5 && productivity < 1) {
             return 'status-warning';
-        } else if (productivity === 1) {
+        } else if (productivity >= 1) {
             return 'status-success';
         } else {
             return '';

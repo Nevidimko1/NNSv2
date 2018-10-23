@@ -16,7 +16,7 @@ export class SectionComponent {
     @Input()
     set selectedUnits(value: UnitsTableItem[]) {
         this._selectedUnits = value;
-        this.selectedTypes = CommonUtils.uniqueValues(value, 'type');
+        this.selectedTypes = CommonUtils.uniqueValues(value.map(v => v.info), 'unitTypeSymbol');
         this._expand = this._enabled = !!this.availableStrategies;
     }
     get selectedUnits() {
