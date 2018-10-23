@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { UnitsListService } from './shared/services/unitsList.service';
 import { UnitsTypesService } from './shared/services/unitsTypes.service';
 
@@ -14,7 +14,8 @@ import { UnitsTypesService } from './shared/services/unitsTypes.service';
             display: flex;
             flex-direction: column;
         }
-    `]
+    `],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent {
     constructor(

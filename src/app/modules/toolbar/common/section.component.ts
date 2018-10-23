@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 
 import { UnitsTableItem } from '../../unitsTable/models/unitsTableItem.model';
 import { CommonUtils } from '../../../utils/common.utils';
@@ -6,7 +6,8 @@ import { IStrategy } from '../../../models/strategy/strategy.model';
 
 @Component({
     selector: 'app-toolbar-section',
-    template: ''
+    template: '',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SectionComponent {
     private _selectedUnits: UnitsTableItem[] = [];

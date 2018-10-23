@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Output, EventEmitter, OnChanges, SimpleChanges, ChangeDetectionStrategy } from '@angular/core';
 
 import { PriceStrategies, MinPrices } from '../../../shared/configs/price.config';
 import { IPriceStrategy } from '../../../../models/strategy/priceStrategy.model';
@@ -13,7 +13,8 @@ import { UnitsTableItem } from 'src/app/modules/unitsTable/models/unitsTableItem
     styleUrls: [
         '../../../../../../node_modules/bootstrap/dist/css/bootstrap.min.css',
         '../../common/styles/card.less'
-    ]
+    ],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PriceComponent extends SectionComponent implements OnChanges {
 
