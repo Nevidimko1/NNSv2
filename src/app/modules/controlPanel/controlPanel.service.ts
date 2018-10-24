@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Store, select } from '@ngrx/store';
-import { Observable, forkJoin, of } from 'rxjs';
+import { Observable, of, combineLatest } from 'rxjs';
 import { first, map, flatMap, tap } from 'rxjs/operators';
 
 import { Unit } from 'src/app/models/unitInfo/unit.model';
@@ -17,12 +17,15 @@ import { UnitCommonInfo } from 'src/app/models/unitInfo/unitCommonInfo.model';
 import { TopUtils } from 'src/app/utils/top.utils';
 import { UnitSummary } from 'src/app/models/unitSummary/unitSummary.model';
 import { UnitForecast } from 'src/app/models/unitForecast/unitForecast.model';
+import { LS } from 'src/app/utils/storage.utils';
+import { SettingsService } from '../shared/services/settings.service';
 
 @Injectable()
 export class ControlPanelService {
     constructor(
         private store: Store<AppState>,
         private apiService: ApiService,
+        private settingsService: SettingsService,
         private forecastParser: ForecastParser,
         private unitSummaryParser: UnitSummaryParser
     ) { }
@@ -72,12 +75,21 @@ export class ControlPanelService {
         );
     }
 
+    private saveSettings$ = (unitId: number): Observable<any> => {
+        return this.store.select(unitsTable).pipe(
+            first(),
+            map((state: UnitsTableState) => state.values.filter(unit => unit.id === unitId)[0]),
+            flatMap(unit => this.settingsService.saveSettings$([unit]))
+        );
+    }
+
     updateUnits$ = (units: Unit[]): Observable<any> => {
-        return forkJoin(units.map(unit => of([]).pipe(
+        return combineLatest(units.map(unit => of([]).pipe(
             flatMap(() => this.refreshCache$(unit.id)),
             flatMap(() => this.populateEfficiencyTomorrow$(unit.id)),
             flatMap(() => this.fetchUnitSummary$(unit.id)),
             flatMap(() => this.populateCommon$(unit.id)),
+            flatMap(() => this.saveSettings$(unit.id))
         )));
     }
 }

@@ -88,7 +88,7 @@
                 <!-- Price -->
                 <ng-container *ngIf="col.field === 'priceConfig'">
                     <div class="cell-wrapper d-flex">
-                        <div style="width: 50%" class="cell-part text-right">{{item.priceStrategy}}</div>
+                        <div style="width: 50%" class="cell-part text-right">{{item.priceStrategyDisplay}}</div>
                         <div style="width: 50%" class="cell-part">{{item.priceMinDisplay}}</div>
                     </div>
                 </ng-container>
@@ -96,7 +96,7 @@
                 <!-- Supply -->
                 <ng-container *ngIf="col.field === 'supplyConfig'">
                     <div class="cell-wrapper">
-                        <div style="width: 42%" class="cell-part text-right">{{item.supplyStrategy}}</div>
+                        <div style="width: 42%" class="cell-part text-right">{{item.supplyStrategyDisplay}}</div>
                         <div style="width: 22%" class="cell-part text-center">{{item.supplyMinDisplay}}</div>
                         <div style="width: 36%" class="cell-part">{{item.supplyMaxValueDisplay}}</div>
                     </div>

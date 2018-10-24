@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { map, first, flatMap } from 'rxjs/operators';
+import { map, first, flatMap, combineLatest } from 'rxjs/operators';
 
 import { AppState, unitsTable } from '../../shared/appState';
 import { UnitsTableItem } from '../unitsTable/models/unitsTableItem.model';
@@ -43,25 +43,21 @@ export class ToolbarComponent {
         );
     }
 
-    private update = (action: string, value: any): Observable<UnitsTableItem[]> => {
+    private update = (action: string, value: any): Observable<any> => {
         return this.selectedUnits$.pipe(
             first(),
             map((items: UnitsTableItem[]) => items.forEach((item: UnitsTableItem) => this.store.dispatch(
                 { type: action, payload: { id: item.id, value } }
             ))),
-            flatMap(() => this.selectedUnits$)
+            flatMap(() => this.selectedUnits$),
+            flatMap(units => this.settingsService.saveSettings$(units))
         );
     }
 
-    onPriceStrategyChange = (value: IPriceStrategy): any => this.update(UnitsTableActions.SET_PRICE_STRATEGY, value)
-        .pipe(flatMap(units => this.settingsService.savePrices(units))).subscribe()
-    onMinPriceChange = (value: number): any => this.update(UnitsTableActions.SET_PRICE_MIN, value)
-        .pipe(flatMap(units => this.settingsService.savePrices(units))).subscribe()
+    onPriceStrategyChange = (value: IPriceStrategy): any => this.update(UnitsTableActions.SET_PRICE_STRATEGY, value).subscribe();
+    onMinPriceChange = (value: number): any => this.update(UnitsTableActions.SET_PRICE_MIN, value).subscribe();
 
-    onSupplyStrategyChange = (value: ISupplyStrategy): any => this.update(UnitsTableActions.SET_SUPPLY_STRATEGY, value)
-        .pipe(flatMap(units => this.settingsService.saveSupplies(units))).subscribe()
-    onMinSupplyChange = (value: number): any => this.update(UnitsTableActions.SET_SUPPLY_MIN, value)
-        .pipe(flatMap(units => this.settingsService.saveSupplies(units))).subscribe()
-    onMaxSupplyValueChange = (value: number): any => this.update(UnitsTableActions.SET_SUPPLY_MAX_VALUE, value)
-        .pipe(flatMap(units => this.settingsService.saveSupplies(units))).subscribe()
+    onSupplyStrategyChange = (value: ISupplyStrategy): any => this.update(UnitsTableActions.SET_SUPPLY_STRATEGY, value).subscribe();
+    onMinSupplyChange = (value: number): any => this.update(UnitsTableActions.SET_SUPPLY_MIN, value).subscribe();
+    onMaxSupplyValueChange = (value: number): any => this.update(UnitsTableActions.SET_SUPPLY_MAX_VALUE, value).subscribe();
 }

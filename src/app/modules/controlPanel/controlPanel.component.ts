@@ -7,6 +7,7 @@ import { AppState, unitsTable } from 'src/app/shared/appState';
 import { UnitsTableItem } from '../unitsTable/models/unitsTableItem.model';
 import { UnitsTableState } from '../unitsTable/unitsTable.reducer';
 import { ControlPanelService } from './controlPanel.service';
+import { SettingsService } from '../shared/services/settings.service';
 
 @Component({
     selector: 'app-control-panel',
@@ -17,7 +18,8 @@ import { ControlPanelService } from './controlPanel.service';
     ],
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [
-        ControlPanelService
+        ControlPanelService,
+        SettingsService
     ]
 })
 export class ControlPanelComponent {

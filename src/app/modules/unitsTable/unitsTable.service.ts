@@ -22,7 +22,7 @@ export class UnitsTableService {
             filter((state: UnitsListState) => state && !!state.values.length),
             first(),
             map((state: UnitsListState) => state.values.map((unit: Unit) => new UnitsTableItem(unit))),
-            flatMap((items: UnitsTableItem[]) => this.settingsService.loadSettings(items)),
+            flatMap((items: UnitsTableItem[]) => this.settingsService.loadSettings$(items)),
             map((items: UnitsTableItem[]) => this.store.dispatch({ type: UnitsTableActions.INIT, payload: items }))
         ).subscribe();
     }
