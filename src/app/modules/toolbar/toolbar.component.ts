@@ -50,6 +50,7 @@ export class ToolbarComponent {
                 { type: action, payload: { id: item.id, value } }
             ))),
             flatMap(() => this.selectedUnits$),
+            first(),
             flatMap(units => this.settingsService.saveSettings$(units))
         );
     }

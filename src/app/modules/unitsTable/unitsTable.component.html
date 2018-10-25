@@ -1,6 +1,6 @@
-<p-table [columns]="columns | async" [value]="data | async" [scrollable]="true" scrollHeight="100%"
-    selectionMode="multiple" [metaKeySelection]="true" [(selection)]="selected" (onRowSelect)="updateSelection()" (onRowUnselect)="updateSelection()"
-    sortMode="multiple">
+<p-table [columns]="columns | async" [value]="data | async" [rowTrackBy]="rowTrackBy"
+    [scrollable]="true" scrollHeight="100%" sortMode="multiple"
+    selectionMode="multiple" [metaKeySelection]="true" [(selection)]="selected" (onRowSelect)="updateSelection()" (onRowUnselect)="updateSelection()">
     
     <ng-template pTemplate="colgroup" let-columns>
         <colgroup>

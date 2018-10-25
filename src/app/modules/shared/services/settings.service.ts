@@ -30,19 +30,19 @@ export class SettingsService {
                     unit.common = settings.data._common && new UnitCommonInfo(settings.data._common._data);
                     unit.summary = settings.data._summary && new UnitSummary(settings.data._summary._data);
                     unit.forecast = settings.data._forecast && new UnitForecast(settings.data._forecast._data);
-
-                    unit.priceState.strategy = settings.data._priceState.strategy &&
-                        PriceStrategies.filter(stg => stg.id === settings.data._priceState.strategy.id)[0];
-                    unit.priceState.min = settings.data._priceState.min &&
-                        MinPrices.filter(min => min.name === settings.data._priceState.min.name)[0];
-
-                    unit.supplyState.strategy = settings.data._supplyState.strategy &&
-                        SupplyStrategies.filter(stg => stg.id === settings.data._supplyState.strategy.id)[0];
-                    unit.supplyState.min = settings.data._supplyState.min &&
-                        MinSupplies.filter(min => min.name === settings.data._supplyState.min.name)[0];
-                    unit.supplyState.maxValue = settings.data._supplyState.maxValue &&
-                        MaxSupplyValues.filter(max => max.name === settings.data._supplyState.maxValue.name)[0];
                 }
+
+                unit.priceState.strategy = settings.data._priceState.strategy &&
+                    PriceStrategies.filter(stg => stg.id === settings.data._priceState.strategy.id)[0];
+                unit.priceState.min = settings.data._priceState.min &&
+                    MinPrices.filter(min => min.name === settings.data._priceState.min.name)[0];
+
+                unit.supplyState.strategy = settings.data._supplyState.strategy &&
+                    SupplyStrategies.filter(stg => stg.id === settings.data._supplyState.strategy.id)[0];
+                unit.supplyState.min = settings.data._supplyState.min &&
+                    MinSupplies.filter(min => min.name === settings.data._supplyState.min.name)[0];
+                unit.supplyState.maxValue = settings.data._supplyState.maxValue &&
+                    MaxSupplyValues.filter(max => max.name === settings.data._supplyState.maxValue.name)[0];
             }),
             map(() => unit)
         );

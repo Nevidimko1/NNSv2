@@ -1,7 +1,7 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { Store, select } from '@ngrx/store';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, Subject, Subscription } from 'rxjs';
+import { map, throttleTime, tap, timeout, debounceTime } from 'rxjs/operators';
 
 import { AppState, unitsTableColumnSettings, unitsTable } from '../../shared/appState';
 import { UnitsTableColumnSettings } from './unitsTableColumnSettings.model';
@@ -24,12 +24,15 @@ import { SettingsService } from '../shared/services/settings.service';
         SettingsService
     ]
 })
-export class UnitsTableComponent {
+export class UnitsTableComponent implements OnDestroy {
 
     protected columns: Observable<Column[]>;
     protected data: Observable<UnitsTableItem[]>;
 
     private selected: UnitsTableItem[];
+
+    private _selected: Subject<void>;
+    private _selectedSub: Subscription;
 
     constructor(
         private store: Store<AppState>,
@@ -44,7 +47,19 @@ export class UnitsTableComponent {
             select(unitsTable),
             map((state: UnitsTableState) => state.values)
         );
+
+        this._selected = new Subject<void>();
+        this._selectedSub = this._selected.pipe(
+            debounceTime(0),
+            map(() => this.service.updateSelection(this.selected))
+        ).subscribe();
     }
+
+    ngOnDestroy() {
+        this._selectedSub.unsubscribe();
+    }
+
+    rowTrackBy = (index: number, item: UnitsTableItem) => item.id;
 
     productivityClass = (productivity: number): string => {
         if (productivity == null) {
@@ -60,5 +75,5 @@ export class UnitsTableComponent {
         }
     }
 
-    updateSelection = () => setTimeout(() => this.service.updateSelection(this.selected));
+    updateSelection = () => this._selected.next();
 }
