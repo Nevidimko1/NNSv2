@@ -132,6 +132,10 @@ export class TopUtils {
     }
 
     public static calculateTop1Load = (unit: UnitsTableItem): number => {
+        if (unit.summary.onHoliday) {
+            return 0;
+        }
+
         const k = TopUtils.getK1(unit.info.unitClassKind);
         if (!k) {
             return 1;

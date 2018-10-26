@@ -1,6 +1,4 @@
 import { UnitsTableItem } from './models/unitsTableItem.model';
-import { Unit } from '../../models/unitInfo/unit.model';
-import { LS } from 'src/app/utils/storage.utils';
 
 export const UnitsTableActions = {
     INIT: 'UnitsTableActions.INIT',
@@ -16,7 +14,9 @@ export const UnitsTableActions = {
 
     SET_FORECAST: 'UnitsTableActions.SET_FORECAST',
     SET_SUMMARY: 'UnitsTableActions.SET_SUMMARY',
-    SET_COMMON: 'UnitsTableActions.SET_COMMON'
+    SET_COMMON: 'UnitsTableActions.SET_COMMON',
+
+    UPDATE_PROGRESS: 'UnitsTableActions.UPDATE_PROGRESS'
 };
 
 export class UnitsTableState {
@@ -138,6 +138,19 @@ export function UnitsTableReducer(state = defaultState, action: any): UnitsTable
 
             if (ex) {
                 ex.common = action.payload.common;
+                return {
+                    ...state
+                };
+            }
+
+            return state;
+        }
+
+        case UnitsTableActions.UPDATE_PROGRESS: {
+            const ex: UnitsTableItem = state.values.filter(i => i.id === action.payload.id)[0];
+
+            if (ex) {
+                ex.status.inProgress = action.payload.inProgress;
                 return {
                     ...state
                 };

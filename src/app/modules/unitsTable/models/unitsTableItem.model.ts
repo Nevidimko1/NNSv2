@@ -7,6 +7,7 @@ import { UnitForecast } from 'src/app/models/unitForecast/unitForecast.model';
 import { IPriceStrategy } from 'src/app/models/strategy/priceStrategy.model';
 import { INumericConfig } from 'src/app/models/strategy/numericConfig.model';
 import { ISupplyStrategy } from 'src/app/models/strategy/supplyStrategy.model';
+import { UnitsTableItemStatus } from './unitsTableItemStatus.model';
 
 export class UnitsTableItem {
     private _info: Unit;
@@ -22,6 +23,8 @@ export class UnitsTableItem {
     private _top1Display: string;
     private _top3Display: string;
 
+    private _status: UnitsTableItemStatus;
+
     constructor(info: Unit) {
         this._productivityDisplay = '?';
         this._productivityTomorrowDisplay = '?';
@@ -36,6 +39,8 @@ export class UnitsTableItem {
 
         this._priceState = new PriceState();
         this._supplyState = new SupplyState();
+
+        this._status = new UnitsTableItemStatus();
     }
 
     set info(val: Unit) {
@@ -59,6 +64,8 @@ export class UnitsTableItem {
         this._productivityTomorrowDisplay = Math.floor(this._forecast.productivity * 100) + '%';
     }
     get forecast(): UnitForecast                { return this._forecast; }
+
+    get status(): UnitsTableItemStatus          { return this._status; }
 
     get id(): number                            { return this._info.id; }
     get productivity(): number                  { return this.info && this.info.productivity; }

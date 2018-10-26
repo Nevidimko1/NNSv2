@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { map, first, flatMap, combineLatest } from 'rxjs/operators';
+import { map, first, flatMap, combineLatest, distinctUntilChanged, tap } from 'rxjs/operators';
 
 import { AppState, unitsTable } from '../../shared/appState';
 import { UnitsTableItem } from '../unitsTable/models/unitsTableItem.model';

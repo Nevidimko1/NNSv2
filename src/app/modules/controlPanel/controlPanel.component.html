@@ -1,16 +1,20 @@
 <div class="section actions">
-    <button class="btn btn-xs btn-outline-primary" [disabled]="!(units$ | async).length" (click)="update()">
-        Update <span class="fa fa-refresh" aria-hidden="true"></span>
+    <button class="btn btn-xs btn-outline-primary" [disabled]="!(units$ | async).length || (actionsDisabled$ | async)" (click)="update()">
+        Update
+        <i class="fa fa-refresh" aria-hidden="true" *ngIf="!(state$ | async).updateInProgress"></i>
+        <i class="fa fa-spinner fa-pulse fa-fw" *ngIf="(state$ | async).updateInProgress"></i>
     </button>
-    <button class="btn btn-xs btn-outline-primary" [disabled]="!(units$ | async).length">
-        Run <span class="fa fa-play" aria-hidden="true"></span>
+    <button class="btn btn-xs btn-outline-primary" [disabled]="!(units$ | async).length || (actionsDisabled$ | async)">
+        Run
+        <i class="fa fa-play" aria-hidden="true" *ngIf="!(state$ | async).runInProgress"></i>
+        <i class="fa fa-spinner fa-pulse fa-fw" *ngIf="(state$ | async).runInProgress"></i>
     </button>
 </div>
 
 <div class="separator"></div>
 
 <div class="section info">
-    <span>Progress: 0 / {{(units$ | async).length}}</span>
-    <span>Elapsed Time: 00:00:00</span>
-    <span>AJAX: 0</span>
+    <span>Progress: {{(state$ | async).currentProgress}} / {{(units$ | async).length}}</span>
+    <span>Elapsed Time: {{(state$ | async).elapsedTime}}</span>
+    <span>AJAX: {{(state$ | async).ajax}}</span>
 </div>

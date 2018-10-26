@@ -1,18 +1,23 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, URLSearchParams, Headers } from '@angular/http';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, Subject } from 'rxjs';
+import { map, finalize } from 'rxjs/operators';
 
 @Injectable()
 export class ApiService {
 
+    public ajax$: Subject<string>;
+
     constructor(
         private http: Http
-    ) { }
+    ) {
+        this.ajax$ = new Subject<string>();
+    }
 
     public get<T>(url: string): Observable<T> {
         return this.http.get(url).pipe(
-            map((response: Response) => response.json())
+            map((response: Response) => response.json()),
+            finalize(() => this.ajax$.next(url))
         );
     }
 
@@ -25,13 +30,15 @@ export class ApiService {
             params.toString(),
             { headers: new Headers({'Content-Type': 'application/x-www-form-urlencoded'}) }
         ).pipe(
-            map((response: Response) => response.json())
+            map((response: Response) => response.json()),
+            finalize(() => this.ajax$.next(url))
         );
     }
 
     public postJson<T>(url: string, data: any): Observable<T> {
         return this.http.post(url, data).pipe(
-            map((response: Response) => response.json())
+            map((response: Response) => response.json()),
+            finalize(() => this.ajax$.next(url))
         );
     }
 }

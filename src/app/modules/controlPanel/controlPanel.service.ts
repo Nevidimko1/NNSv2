@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Store, select } from '@ngrx/store';
-import { Observable, of, combineLatest } from 'rxjs';
-import { first, map, flatMap, tap } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { first, map, flatMap, tap, finalize, takeUntil, filter } from 'rxjs/operators';
 
 import { Unit } from 'src/app/models/unitInfo/unit.model';
 import { forecastUrl, refreshCacheUrl, summaryUrl } from 'src/app/shared/api';
-import { AppState, globals, unitsTable } from 'src/app/shared/appState';
+import { AppState, globals, unitsTable, controlPanel } from 'src/app/shared/appState';
 import { IGlobalsState } from 'src/app/reducers/globals.reducer';
 import { ApiService } from 'src/app/shared/services/api.service';
 import { IUnitForecastResponse } from 'src/app/models/unitForecast/unitForecastResponse.model';
@@ -17,8 +17,8 @@ import { UnitCommonInfo } from 'src/app/models/unitInfo/unitCommonInfo.model';
 import { TopUtils } from 'src/app/utils/top.utils';
 import { UnitSummary } from 'src/app/models/unitSummary/unitSummary.model';
 import { UnitForecast } from 'src/app/models/unitForecast/unitForecast.model';
-import { LS } from 'src/app/utils/storage.utils';
 import { SettingsService } from '../shared/services/settings.service';
+import { ControlPanelActions, ControlPanelState } from './controlPanel.reducer';
 
 @Injectable()
 export class ControlPanelService {
@@ -29,6 +29,10 @@ export class ControlPanelService {
         private forecastParser: ForecastParser,
         private unitSummaryParser: UnitSummaryParser
     ) { }
+
+    get ajax$() {
+        return this.apiService.ajax$;
+    }
 
     private refreshCache$ = (unitId: number): Observable<any> => {
         return this.store.pipe(
@@ -83,13 +87,23 @@ export class ControlPanelService {
         );
     }
 
-    updateUnits$ = (units: Unit[]): Observable<any> => {
-        return combineLatest(units.map(unit => of([]).pipe(
-            flatMap(() => this.refreshCache$(unit.id)),
-            flatMap(() => this.populateEfficiencyTomorrow$(unit.id)),
-            flatMap(() => this.fetchUnitSummary$(unit.id)),
-            flatMap(() => this.populateCommon$(unit.id)),
-            flatMap(() => this.saveSettings$(unit.id))
-        )));
+    public updateUnits$ = (units: Unit[]): Observable<any> => {
+        this.store.dispatch({ type: ControlPanelActions.START_UPDATE });
+        return units.reduce((result: Observable<any>, unit: Unit) => {
+            this.store.dispatch({ type: UnitsTableActions.UPDATE_PROGRESS, payload: { id: unit.id, inProgress: true }});
+            return result.pipe(
+                flatMap(() => this.refreshCache$(unit.id)),
+                flatMap(() => this.populateEfficiencyTomorrow$(unit.id)),
+                flatMap(() => this.fetchUnitSummary$(unit.id)),
+                flatMap(() => this.populateCommon$(unit.id)),
+                flatMap(() => this.saveSettings$(unit.id)),
+                finalize(() => {
+                    this.store.dispatch({ type: UnitsTableActions.UPDATE_PROGRESS, payload: { id: unit.id, inProgress: false }});
+                    this.store.dispatch({ type: ControlPanelActions.INCREMENT_CURRENT_PROGRESS });
+                })
+            );
+        }, of([])).pipe(
+            finalize(() => this.store.dispatch({ type: ControlPanelActions.STOP_UPDATE }))
+        );
     }
 }

@@ -104,8 +104,8 @@
                 
                 <!-- Status -->
                 <ng-container *ngIf="col.field === 'status'">
-                    <div class="cell-wrapper">
-                        
+                    <div class="cell-wrapper status-cell">
+                        <i class="fa fa-spinner fa-pulse fa-fw" *ngIf="item.status.inProgress"></i>
                     </div>
                 </ng-container>
 
