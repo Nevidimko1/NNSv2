@@ -11,6 +11,8 @@ import { UnitIndicator } from '../../models/unitInfo/unitIndicator.model';
 import { UnitProduct } from '../../models/unitInfo/unitProduct.model';
 import { AppState, globals } from '../appState';
 import { IGlobalsState } from 'src/app/reducers/globals.reducer';
+import { unitItemData } from './responses/unitItem.data';
+import { unitIndicatorData } from './responses/unitIndicator.data';
 
 @Injectable()
 export class UnitsListParser extends Parser {
@@ -57,10 +59,8 @@ export class UnitsListParser extends Parser {
             select(globals),
             first(),
             map((state: IGlobalsState) => {
-                this.diff(response, IUnitsResponse);
-
                 const data = CommonUtils.flatMap(response.data);
-                this.diff(data[0], IUnitsResponseItem);
+                data.forEach(item => this.diff(item, unitItemData));
 
                 return data.map((responseItem: IUnitsResponseItem) => new Unit({
                     id: Number(responseItem.id),
@@ -89,11 +89,15 @@ export class UnitsListParser extends Parser {
                     indicators: Object.keys(response.indicators)
                         .filter((key: string) => Number(responseItem.id) === Number(key))
                         .map((key: string) => CommonUtils.flatMap(response.indicators[key])
-                            .map((item: IUnitsResponseIndicator) => new UnitIndicator({
-                                id: Number(item.id),
-                                kind: item.kind,
-                                name: item.name
-                            }))
+                            .map((item: IUnitsResponseIndicator) => {
+                                this.diff(item, unitIndicatorData);
+
+                                return new UnitIndicator({
+                                    id: Number(item.id),
+                                    kind: item.kind,
+                                    name: item.name
+                                });
+                            })
                         )[0] || [],
                     url: `/${state.info.realm}/main/unit/view/${responseItem.id}`
                 }));

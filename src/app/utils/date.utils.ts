@@ -16,4 +16,12 @@ export class DateUtils {
 
         return `${hours}:${mins}:${secs}`;
     }
+
+    public static get offset(): number {
+        const date = new Date();
+        return (date.getTimezoneOffset() -
+            new Date(date.getFullYear(), 0, 1).getTimezoneOffset() +
+            new Date(date.getFullYear(), 6, 1).getTimezoneOffset()
+        ) * 60000;
+    }
 }

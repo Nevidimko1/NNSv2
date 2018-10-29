@@ -38,9 +38,8 @@ const defaultState: ControlPanelState = {
 
 function calculateElapsedTime(startDate: Date): string {
     const now = new Date(),
-        from = startDate || new Date(),
-        offset = now.getTimezoneOffset() * 60000;
-    return DateUtils.time(new Date(now.getTime() - from.getTime() + offset));
+        from = startDate || new Date();
+    return DateUtils.time(new Date(now.getTime() - from.getTime() + DateUtils.offset));
 }
 
 export function ControlPanelReducer(state = defaultState, action: any): ControlPanelState {

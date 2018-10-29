@@ -5,6 +5,7 @@ import { Parser } from './parser';
 import { IUnitSummaryResponse } from 'src/app/models/unitSummary/unitSummaryResponse.model';
 import { UnitSummary } from 'src/app/models/unitSummary/unitSummary.model';
 import { NumberUtils } from 'src/app/utils/number.utils';
+import { unitSummaryData } from './responses/unitSummary.data';
 
 @Injectable()
 export class UnitSummaryParser extends Parser {
@@ -15,7 +16,7 @@ export class UnitSummaryParser extends Parser {
     }
 
     public parse = (response: IUnitSummaryResponse): Observable<UnitSummary> => {
-        this.diff(response, IUnitSummaryResponse);
+        this.diff(response, unitSummaryData);
 
         return of(new UnitSummary({
             id: NumberUtils.numberify(response.id),

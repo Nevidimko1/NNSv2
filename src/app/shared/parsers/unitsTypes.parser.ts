@@ -5,6 +5,7 @@ import { CommonUtils } from '../../utils/common.utils';
 import { Parser } from './parser';
 import { UnitType } from '../../models/unitType/unitType.model';
 import { IUnitTypesResponseItem, IUnitTypesResponse } from '../../models/unitType/unitTypeResponse.model';
+import { unitTypeData } from './responses/unitType.data';
 
 @Injectable()
 export class UnitsTypesParser extends Parser {
@@ -15,10 +16,8 @@ export class UnitsTypesParser extends Parser {
     }
 
     public parse = (response: IUnitTypesResponse): Observable<UnitType[]> => {
-        this.diff(response, IUnitTypesResponse);
-
         const data = CommonUtils.flatMap(response);
-        this.diff(data[0], IUnitTypesResponseItem);
+        this.diff(data[0], unitTypeData);
 
         return of(data.map((responseItem: IUnitTypesResponseItem) => new UnitType({
             id: Number(responseItem.id),
