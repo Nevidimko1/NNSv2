@@ -60,7 +60,8 @@ export function ControlPanelReducer(state = defaultState, action: any): ControlP
                 ...state,
                 currentProgress: 0,
                 startedAt: null,
-                ajax: 0
+                ajax: 0,
+                elapsedTime: calculateElapsedTime(null)
             };
         }
 

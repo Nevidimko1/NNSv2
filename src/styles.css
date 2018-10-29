@@ -26,8 +26,6 @@ body.nns {
     flex-direction: column;
     padding: 0 !important;
     margin-bottom: 20px;
-
-    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
 }
 
 .nns #mainContent::after {

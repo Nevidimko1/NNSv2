@@ -20,7 +20,7 @@
     <ng-template pTemplate="body" let-item let-columns="columns" let-rowIndex="rowIndex">
         <tr class="position-relative" [pSelectableRow]="item" [pSelectableRowIndex]="rowIndex">
 
-            <td *ngFor="let col of columns" [class]="'position-relative b-right ' + col.class">
+            <td *ngFor="let col of columns" [class]="'position-relative ' + col.class">
                     
                 <!-- Country -->
                 <ng-container *ngIf="col.field === 'country'">
