@@ -42,21 +42,6 @@ export class IUnitSummary {
     laborMax: number;
     laborQty: number;
     speedupCost: number;
-    districtName: number;
-    tradingSquare: number;
-    rentCost: number;
-    sectionCount: number;
-    employeeRequired: number;
-    cityEmployeeLevel: number;
-    fame: number;
-    advertisingCost: number;
-    advertisingProductivity: number;
-    customersCount: number;
-    serviceType: number;
-    boundLevel: number;
-    unicity: number;
-    districtId: number;
-    square: number;
     companyId: number;
     userId: number;
     unitTypeProduceId: number;
@@ -124,21 +109,6 @@ export class UnitSummary {
     get laborMax(): number 			            { return this._data.laborMax; }
     get laborQty(): number 			            { return this._data.laborQty; }
     get speedupCost(): number 		        	{ return this._data.speedupCost; }
-    get districtName(): number 			        { return this._data.districtName; }
-    get tradingSquare(): number     			{ return this._data.tradingSquare; }
-    get rentCost(): number 		            	{ return this._data.rentCost; }
-    get sectionCount(): number 		        	{ return this._data.sectionCount; }
-    get employeeRequired(): number 	    		{ return this._data.employeeRequired; }
-    get cityEmployeeLevel(): number 			{ return this._data.cityEmployeeLevel; }
-    get fame(): number 			                { return this._data.fame; }
-    get advertisingCost(): number 	    		{ return this._data.advertisingCost; }
-    get advertisingProductivity(): number 		{ return this._data.advertisingProductivity; }
-    get customersCount(): number 		    	{ return this._data.customersCount; }
-    get serviceType(): number 		        	{ return this._data.serviceType; }
-    get boundLevel(): number 		        	{ return this._data.boundLevel; }
-    get unicity(): number 		            	{ return this._data.unicity; }
-    get districtId(): number         			{ return this._data.districtId; }
-    get square(): number 		            	{ return this._data.square; }
     get companyId(): number 			        { return this._data.companyId; }
     get userId(): number             			{ return this._data.userId; }
     get unitTypeProduceId(): number 			{ return this._data.unitTypeProduceId; }
