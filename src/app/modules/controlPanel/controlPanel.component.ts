@@ -7,7 +7,6 @@ import { AppState, unitsTable, controlPanel } from 'src/app/shared/appState';
 import { UnitsTableItem } from '../unitsTable/models/unitsTableItem.model';
 import { UnitsTableState } from '../unitsTable/unitsTable.reducer';
 import { ControlPanelService } from './controlPanel.service';
-import { SettingsService } from '../shared/services/settings.service';
 import { ControlPanelState, ControlPanelActions } from './controlPanel.reducer';
 import { RetailPricesService } from 'src/app/shared/services/retailPrices.service';
 
@@ -21,7 +20,6 @@ import { RetailPricesService } from 'src/app/shared/services/retailPrices.servic
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [
         ControlPanelService,
-        SettingsService,
         RetailPricesService
     ]
 })

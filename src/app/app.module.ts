@@ -28,6 +28,8 @@ import { UnitSummaryParser } from './shared/parsers/unitSummary.parser';
 import { RetailTradingHallParser } from './shared/parsers/retail/retailTradingHall.parser';
 import { RetailProductReportParser } from './shared/parsers/retail/retailProductReport.parser';
 import { RetailProductHistoryParser } from './shared/parsers/retail/retailProductHistory.parser';
+import { UnitInfoService } from './shared/services/unitInfo.service';
+import { SettingsService } from './modules/shared/services/settings.service';
 
 @NgModule({
     declarations: [
@@ -59,6 +61,8 @@ import { RetailProductHistoryParser } from './shared/parsers/retail/retailProduc
         RetailProductReportParser,
         RetailProductHistoryParser,
 
+        SettingsService,
+        UnitInfoService,
         GlobalsService,
         UnitsListService,
         UnitsTypesService

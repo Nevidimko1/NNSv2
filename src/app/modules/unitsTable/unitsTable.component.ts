@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Observable, Subject, Subscription } from 'rxjs';
-import { map, throttleTime, tap, timeout, debounceTime } from 'rxjs/operators';
+import { map, debounceTime } from 'rxjs/operators';
 
 import { AppState, unitsTableColumnSettings, unitsTable } from '../../shared/appState';
 import { UnitsTableColumnSettings } from './unitsTableColumnSettings.model';
@@ -9,7 +9,6 @@ import { Column } from '../../models/table/column.model';
 import { UnitsTableService } from './unitsTable.service';
 import { UnitsTableItem } from './models/unitsTableItem.model';
 import { UnitsTableState } from './unitsTable.reducer';
-import { SettingsService } from '../shared/services/settings.service';
 
 @Component({
     selector: 'app-units-table',
@@ -20,8 +19,7 @@ import { SettingsService } from '../shared/services/settings.service';
     ],
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [
-        UnitsTableService,
-        SettingsService
+        UnitsTableService
     ]
 })
 export class UnitsTableComponent implements OnDestroy {
