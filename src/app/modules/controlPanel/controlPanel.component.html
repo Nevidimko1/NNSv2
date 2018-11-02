@@ -4,7 +4,7 @@
         <i class="fa fa-refresh" aria-hidden="true" *ngIf="!(state$ | async).updateInProgress"></i>
         <i class="fa fa-spinner fa-pulse fa-fw" *ngIf="(state$ | async).updateInProgress"></i>
     </button>
-    <button class="btn btn-xs btn-outline-primary" [disabled]="!(units$ | async).length || (actionsDisabled$ | async)">
+    <button class="btn btn-xs btn-outline-primary" [disabled]="!(units$ | async).length || (actionsDisabled$ | async)" (click)="run()">
         Run
         <i class="fa fa-play" aria-hidden="true" *ngIf="!(state$ | async).runInProgress"></i>
         <i class="fa fa-spinner fa-pulse fa-fw" *ngIf="(state$ | async).runInProgress"></i>

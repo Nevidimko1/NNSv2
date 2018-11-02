@@ -25,6 +25,9 @@ import { ControlPanelComponent } from './modules/controlPanel/controlPanel.compo
 import { ApiService } from './shared/services/api.service';
 import { ForecastParser } from './shared/parsers/forecast.parser';
 import { UnitSummaryParser } from './shared/parsers/unitSummary.parser';
+import { RetailTradingHallParser } from './shared/parsers/retail/retailTradingHall.parser';
+import { RetailProductReportParser } from './shared/parsers/retail/retailProductReport.parser';
+import { RetailProductHistoryParser } from './shared/parsers/retail/retailProductHistory.parser';
 
 @NgModule({
     declarations: [
@@ -51,6 +54,11 @@ import { UnitSummaryParser } from './shared/parsers/unitSummary.parser';
         UnitsTypesParser,
         ForecastParser,
         UnitSummaryParser,
+
+        RetailTradingHallParser,
+        RetailProductReportParser,
+        RetailProductHistoryParser,
+
         GlobalsService,
         UnitsListService,
         UnitsTypesService
@@ -95,6 +103,8 @@ export class AppModule {
             select(globals),
             filter((state: IGlobalsState) => state.info.isNNSPage),
             map(() => {
+                console.clear();
+
                 // add body class selector
                 document.body.classList.add('nns');
 

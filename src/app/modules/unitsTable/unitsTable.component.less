@@ -60,6 +60,15 @@
     border-top: 1px solid @mainColor;
     border-bottom: 1px solid @mainColor;
 
+    .pi-sort {
+        // sort icon fix
+        height: 5px;
+
+        &::before {
+            content: '' !important;
+        }
+    }
+
     .ui-table-scrollable-header-box, .ui-table-scrollable-body {
         margin-right: 0px !important;
         overflow-y: scroll;

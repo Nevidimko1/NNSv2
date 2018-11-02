@@ -1,12 +1,13 @@
 import { UnitProduct } from '../../../../models/unitInfo/unitProduct.model';
 import { CalcFunctions } from '../../../../shared/calcFunctions';
 import { NumberUtils } from '../../../../utils/number.utils';
+import { RetailProduct } from 'src/app/models/retail/retailProduct.model';
 
 export class SharedPriceStrategy {
 
     constructor() { }
 
-    public calc = (product: any, share: number): number => {
+    public calcShared = (product: RetailProduct, share: number): number => {
         // в расчетах предполагаем, что парсер нам гарантирует 0 или число, если элемент есть в массиве.
         // не паримся с undefined
         if (!product) {
@@ -25,7 +26,7 @@ export class SharedPriceStrategy {
         const localQuality = product.report && product.report.localQuality;
 
         if (!localPrice || !localQuality) {
-            console.error(`Product ${product.name} has no report data`);
+            console.error(`Product ${product.report.name} has no report data`);
             return 0;
         }
 
@@ -48,7 +49,7 @@ export class SharedPriceStrategy {
             // если товар уже был и цена стояла а продаж еще не было, плохо это. если не стояло, ставим базовую
             if (product.stock > product.deliver) {
                 if (product.price > 0) {
-                    const err = `${product.name}: 0 sales for min price (${product.price})`;
+                    const err = `${product.report.name}: 0 sales for min price (${product.price})`;
                     console.error(err);
                 } else {
                     price = CalcFunctions.calcBaseRetailPrice(product.quality, localPrice, localQuality);
@@ -74,7 +75,7 @@ export class SharedPriceStrategy {
                     if (product.price === 0) {
                         price = CalcFunctions.calcBaseRetailPrice(product.quality, localPrice, localQuality);
                     } else {
-                        const err = `${product.name}: 0 sales for min price (${product.price})`;
+                        const err = `${product.report.name}: 0 sales for min price (${product.price})`;
                         console.error(err);
                     }
                 }

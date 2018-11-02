@@ -55,6 +55,17 @@ export function ControlPanelReducer(state = defaultState, action: any): ControlP
             };
         }
 
+        case ControlPanelActions.START_RUN: {
+            return {
+                updateInProgress: false,
+                runInProgress: true,
+                currentProgress: 0,
+                startedAt: new Date(),
+                elapsedTime: calculateElapsedTime(new Date()),
+                ajax: 0
+            };
+        }
+
         case ControlPanelActions.RESET_CURRENT_PROGRESS: {
             return {
                 ...state,

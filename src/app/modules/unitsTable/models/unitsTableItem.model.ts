@@ -26,10 +26,10 @@ export class UnitsTableItem {
     private _status: UnitsTableItemStatus;
 
     constructor(info: Unit) {
-        this._productivityDisplay = '?';
-        this._productivityTomorrowDisplay = '?';
-        this._top1Display = '?';
-        this._top3Display = '?';
+        this._productivityDisplay = '';
+        this._productivityTomorrowDisplay = '';
+        this._top1Display = '';
+        this._top3Display = '';
 
         this.info = info;
 

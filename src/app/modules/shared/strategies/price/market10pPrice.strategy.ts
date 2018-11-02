@@ -1,7 +1,7 @@
 import { IPriceStrategy } from '../../../../models/strategy/priceStrategy.model';
-import { UnitProduct } from '../../../../models/unitInfo/unitProduct.model';
 import { UNIT_TYPES } from '../../../../shared/unitTypes.enum';
 import { SharedPriceStrategy } from './sharedPrice.strategy';
+import { RetailProduct } from 'src/app/models/retail/retailProduct.model';
 
 export class Market10pPriceStrategy extends SharedPriceStrategy implements IPriceStrategy {
 
@@ -14,7 +14,5 @@ export class Market10pPriceStrategy extends SharedPriceStrategy implements IPric
         super();
     }
 
-    public calc = (p: UnitProduct): number => {
-        return 10;
-    }
+    public calc = (p: RetailProduct): number => this.calcShared(p, 10);
 }

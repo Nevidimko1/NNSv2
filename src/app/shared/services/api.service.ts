@@ -16,7 +16,13 @@ export class ApiService {
 
     public get<T>(url: string): Observable<T> {
         return this.http.get(url).pipe(
-            map((response: Response) => response.json()),
+            map((response: Response) => {
+                try {
+                    return response.json();
+                } catch (e) {
+                    return response.text();
+                }
+            }),
             finalize(() => this.ajax$.next(url))
         );
     }
@@ -30,7 +36,13 @@ export class ApiService {
             params.toString(),
             { headers: new Headers({'Content-Type': 'application/x-www-form-urlencoded'}) }
         ).pipe(
-            map((response: Response) => response.json()),
+            map((response: Response) => {
+                try {
+                    return response.json();
+                } catch (e) {
+                    return response.text();
+                }
+            }),
             finalize(() => this.ajax$.next(url))
         );
     }

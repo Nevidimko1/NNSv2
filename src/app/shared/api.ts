@@ -5,3 +5,9 @@ export const unitListUrl = (realm: string, id: number) => `/api/${realm}/main/co
 
 export const forecastUrl = (realm: string) => `/${realm}/ajax/unit/forecast`;
 export const summaryUrl = (realm: string, id: number) => `/api/${realm}/main/unit/summary?id=${id}`;
+
+export const tradingHallUrl = (realm: string, id: number) => `/${realm}/main/unit/view/${id}/trading_hall`;
+export const productReportUrl = (realm: string, id: number, geo: string) =>
+    `/api/${realm}/main/marketing/report/retail/metrics?format=json&product_id=${id}&geo=${geo}`;
+export const productHistoryUrl = (realm: string, unitId: number, productId: number) =>
+    `/${realm}/window/unit/view/${unitId}/product_history/${productId}/`;

@@ -19,6 +19,8 @@ import { UnitSummary } from 'src/app/models/unitSummary/unitSummary.model';
 import { UnitForecast } from 'src/app/models/unitForecast/unitForecast.model';
 import { SettingsService } from '../shared/services/settings.service';
 import { ControlPanelActions, ControlPanelState } from './controlPanel.reducer';
+import { RetailPricesService } from 'src/app/shared/services/retailPrices.service';
+import { UnitsTableItem } from '../unitsTable/models/unitsTableItem.model';
 
 @Injectable()
 export class ControlPanelService {
@@ -27,7 +29,9 @@ export class ControlPanelService {
         private apiService: ApiService,
         private settingsService: SettingsService,
         private forecastParser: ForecastParser,
-        private unitSummaryParser: UnitSummaryParser
+        private unitSummaryParser: UnitSummaryParser,
+
+        private retailPricesService: RetailPricesService
     ) { }
 
     get ajax$() {
@@ -89,21 +93,33 @@ export class ControlPanelService {
 
     public updateUnits$ = (units: Unit[]): Observable<any> => {
         this.store.dispatch({ type: ControlPanelActions.START_UPDATE });
-        return units.reduce((result: Observable<any>, unit: Unit) => {
-            this.store.dispatch({ type: UnitsTableActions.UPDATE_PROGRESS, payload: { id: unit.id, inProgress: true }});
-            return result.pipe(
-                flatMap(() => this.refreshCache$(unit.id)),
-                flatMap(() => this.populateEfficiencyTomorrow$(unit.id)),
-                flatMap(() => this.fetchUnitSummary$(unit.id)),
-                flatMap(() => this.populateCommon$(unit.id)),
-                flatMap(() => this.saveSettings$(unit.id)),
-                finalize(() => {
-                    this.store.dispatch({ type: UnitsTableActions.UPDATE_PROGRESS, payload: { id: unit.id, inProgress: false }});
-                    this.store.dispatch({ type: ControlPanelActions.INCREMENT_CURRENT_PROGRESS });
-                })
-            );
-        }, of([])).pipe(
+        return units.reduce((result: Observable<any>, unit: Unit) => result.pipe(
+            tap(() => this.store.dispatch({ type: UnitsTableActions.UPDATE_PROGRESS, payload: { id: unit.id, inProgress: true }})),
+            flatMap(() => this.refreshCache$(unit.id)),
+            flatMap(() => this.populateEfficiencyTomorrow$(unit.id)),
+            flatMap(() => this.fetchUnitSummary$(unit.id)),
+            flatMap(() => this.populateCommon$(unit.id)),
+            flatMap(() => this.saveSettings$(unit.id)),
+            finalize(() => {
+                this.store.dispatch({ type: UnitsTableActions.UPDATE_PROGRESS, payload: { id: unit.id, inProgress: false }});
+                this.store.dispatch({ type: ControlPanelActions.INCREMENT_CURRENT_PROGRESS });
+            })
+        ), of([])).pipe(
             finalize(() => this.store.dispatch({ type: ControlPanelActions.STOP_UPDATE }))
+        );
+    }
+
+    public runUnits$ = (units: UnitsTableItem[]): Observable<any> => {
+        this.store.dispatch({ type: ControlPanelActions.START_RUN });
+        return units.reduce((result: Observable<any>, unit: UnitsTableItem) => result.pipe(
+            tap(() => this.store.dispatch({ type: UnitsTableActions.UPDATE_PROGRESS, payload: { id: unit.id, inProgress: true } })),
+            flatMap(() => this.retailPricesService.checkAndUpdate$(unit)),
+            finalize(() => {
+                this.store.dispatch({ type: UnitsTableActions.UPDATE_PROGRESS, payload: { id: unit.id, inProgress: false } });
+                this.store.dispatch({ type: ControlPanelActions.INCREMENT_CURRENT_PROGRESS });
+            })
+        ), of([])).pipe(
+            finalize(() => this.store.dispatch({ type: ControlPanelActions.STOP_RUN }))
         );
     }
 }

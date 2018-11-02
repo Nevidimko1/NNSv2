@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { Store, select } from '@ngrx/store';
-import { Observable, interval, forkJoin, Subscription, merge, } from 'rxjs';
-import { map, flatMap, first, tap, takeUntil, distinctUntilChanged, finalize } from 'rxjs/operators';
+import { Observable, interval, Subscription, merge, } from 'rxjs';
+import { map, flatMap, first, tap, takeUntil, distinctUntilChanged } from 'rxjs/operators';
 
 import { AppState, unitsTable, controlPanel } from 'src/app/shared/appState';
 import { UnitsTableItem } from '../unitsTable/models/unitsTableItem.model';
@@ -9,7 +9,7 @@ import { UnitsTableState } from '../unitsTable/unitsTable.reducer';
 import { ControlPanelService } from './controlPanel.service';
 import { SettingsService } from '../shared/services/settings.service';
 import { ControlPanelState, ControlPanelActions } from './controlPanel.reducer';
-import { ApiService } from 'src/app/shared/services/api.service';
+import { RetailPricesService } from 'src/app/shared/services/retailPrices.service';
 
 @Component({
     selector: 'app-control-panel',
@@ -21,7 +21,8 @@ import { ApiService } from 'src/app/shared/services/api.service';
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [
         ControlPanelService,
-        SettingsService
+        SettingsService,
+        RetailPricesService
     ]
 })
 export class ControlPanelComponent implements OnDestroy {
@@ -35,7 +36,6 @@ export class ControlPanelComponent implements OnDestroy {
 
     constructor (
         private store: Store<AppState>,
-        private apiService: ApiService,
         private service: ControlPanelService
     ) {
         this.state$ = this.store.pipe(
@@ -73,6 +73,24 @@ export class ControlPanelComponent implements OnDestroy {
                 this.units$.pipe(
                     first(),
                     flatMap(units => this.service.updateUnits$(units.map(unit => unit.info)))
+                )
+            )
+        ).subscribe();
+    }
+
+    run = () => {
+        merge(
+            interval(1000).pipe(
+                tap(() => this.store.dispatch({ type: ControlPanelActions.UPDATE_ELAPSED_TIME }))
+            ),
+            this.service.ajax$.pipe(
+                tap(() => this.store.dispatch({ type: ControlPanelActions.INCREMENT_AJAX }))
+            )
+        ).pipe(
+            takeUntil(
+                this.units$.pipe(
+                    first(),
+                    flatMap(units => this.service.runUnits$(units))
                 )
             )
         ).subscribe();
