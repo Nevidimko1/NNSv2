@@ -12,3 +12,5 @@ export const productReportUrl = (realm: string, id: number, geo: string) =>
     `/api/${realm}/main/marketing/report/retail/metrics?format=json&product_id=${id}&geo=${geo}`;
 export const productHistoryUrl = (realm: string, unitId: number, productId: number) =>
     `/${realm}/window/unit/view/${unitId}/product_history/${productId}/`;
+export const supplyUrl = (realm: string, id: number) => `/${realm}/main/unit/view/${id}/supply`;
+export const updateSupplyUrl = (realm: string) => `/${realm}/ajax/unit/supply/create`;

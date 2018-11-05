@@ -1,6 +1,6 @@
-import { UnitProduct } from '../../../../models/unitInfo/unitProduct.model';
 import { UNIT_TYPES } from '../../../../shared/unitTypes.enum';
 import { ISupplyStrategy } from '../../../../models/strategy/supplyStrategy.model';
+import { RetailSupplyProduct } from 'src/app/models/retail/retailSupplyProduct.model';
 
 export class ZeroSupplyStrategy implements ISupplyStrategy {
 
@@ -11,7 +11,7 @@ export class ZeroSupplyStrategy implements ISupplyStrategy {
 
     constructor() { }
 
-    public calc = (p: UnitProduct): number => {
+    public calc = (p: RetailSupplyProduct): number => {
         return 0;
     }
 }

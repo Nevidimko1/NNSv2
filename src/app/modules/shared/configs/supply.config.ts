@@ -12,6 +12,7 @@ export const SupplyStrategies: ISupplyStrategy[] = [
 
 export const MinSupplies: INumericConfig[] = [
     { name: '0', shortName: '0', value: 0 },
+    { name: '1', shortName: '1', value: 1 },
     { name: '10', shortName: '10', value: 10 }
 ];
 

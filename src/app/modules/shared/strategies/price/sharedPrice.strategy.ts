@@ -1,4 +1,3 @@
-import { UnitProduct } from '../../../../models/unitInfo/unitProduct.model';
 import { CalcFunctions } from '../../../../shared/calcFunctions';
 import { NumberUtils } from '../../../../utils/number.utils';
 import { RetailProduct } from 'src/app/models/retail/retailProduct.model';

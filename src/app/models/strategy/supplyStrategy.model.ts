@@ -1,6 +1,6 @@
 import { IStrategy } from './strategy.model';
-import { UnitProduct } from '../unitInfo/unitProduct.model';
+import { RetailSupplyProduct } from '../retail/retailSupplyProduct.model';
 
 export interface ISupplyStrategy extends IStrategy {
-    calc(p: UnitProduct): number;
+    calc(p: RetailSupplyProduct): number;
 }

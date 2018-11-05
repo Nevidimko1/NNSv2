@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
 import { map, flatMap, first, tap, finalize } from 'rxjs/operators';
 
-import { AppState, globals } from '../../appState';
+import { AppState, globals, unitsTable } from '../../appState';
 import { ApiService } from '../api.service';
 import { tradingHallUrl, productHistoryUrl } from '../../api';
 import { RetailProduct } from 'src/app/models/retail/retailProduct.model';
@@ -49,7 +49,7 @@ export class RetailPricesService extends RetailService {
 
     private populateReports$ = (unit: UnitsTableItem, products: RetailProduct[]): Observable<RetailProduct[]> => {
         return of([]).pipe(
-            flatMap(state => products.reduce((result, p) => result.pipe(
+            flatMap(() => products.reduce((result, p) => result.pipe(
                 flatMap(() => this.getReport$(unit.info, p.id)),
                 tap(report => p.report = report),
                 finalize(() => [])
@@ -110,7 +110,15 @@ export class RetailPricesService extends RetailService {
         );
     }
 
-    public checkAndUpdate$ = (unit: UnitsTableItem): Observable<any> => {
-        return (unit.info.unitClassKind === UNIT_TYPES.SHOP) ? this.update$(unit) : of([]);
+    public checkAndUpdate$ = (unitId: number, unitType: string): Observable<any> => {
+        if (unitType !== UNIT_TYPES.SHOP) {
+            return of([]);
+        } else {
+            return this.store.select(unitsTable).pipe(
+                first(),
+                map(state => state.values.filter(u => u.id === unitId)[0]),
+                flatMap(unit => this.update$(unit))
+            );
+        }
     }
 }
