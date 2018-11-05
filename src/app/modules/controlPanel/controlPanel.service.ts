@@ -8,9 +8,10 @@ import { AppState } from 'src/app/shared/appState';
 import { ApiService } from 'src/app/shared/services/api.service';
 import { UnitsTableActions } from '../unitsTable/unitsTable.reducer';
 import { ControlPanelActions } from './controlPanel.reducer';
-import { RetailPricesService } from 'src/app/shared/services/retailPrices.service';
+import { RetailPricesService } from 'src/app/shared/services/retail/retailPrices.service';
 import { UnitsTableItem } from '../unitsTable/models/unitsTableItem.model';
 import { UnitInfoService } from 'src/app/shared/services/unitInfo.service';
+import { RetailSupplyService } from 'src/app/shared/services/retail/retailSupply.service';
 
 @Injectable()
 export class ControlPanelService {
@@ -18,7 +19,8 @@ export class ControlPanelService {
         private store: Store<AppState>,
         private apiService: ApiService,
         private unitInfoService: UnitInfoService,
-        private retailPricesService: RetailPricesService
+        private retailPricesService: RetailPricesService,
+        private retailSupplyService: RetailSupplyService
     ) { }
 
     get ajax$() {
@@ -47,6 +49,7 @@ export class ControlPanelService {
             this.store.dispatch({ type: UnitsTableActions.UPDATE_PROGRESS, payload: { id: unit.id, inProgress: true } });
             return result.pipe(
                 flatMap(() => this.retailPricesService.checkAndUpdate$(unit)),
+                flatMap(() => this.retailSupplyService.checkAndUpdate$(unit)),
                 finalize(() => {
                     this.store.dispatch({ type: UnitsTableActions.UPDATE_PROGRESS, payload: { id: unit.id, inProgress: false } });
                     this.store.dispatch({ type: ControlPanelActions.INCREMENT_CURRENT_PROGRESS });

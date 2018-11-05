@@ -2,6 +2,7 @@ export const tokenUrl = (realm: string): string => `/api/${realm}/main/token`;
 export const refreshCacheUrl = (realm: string): string => `/api/${realm}/main/unit/refresh`;
 export const unitTypesListUrl = (realm: string): string => `/api/${realm}/main/unittype/browse`;
 export const unitListUrl = (realm: string, id: number) => `/api/${realm}/main/company/units?id=${id}&pagesize=${new Date().getTime()}`;
+export const citiesUrl = (realm: string) => `/api/${realm}/main/geo/city/browse`;
 
 export const forecastUrl = (realm: string) => `/${realm}/ajax/unit/forecast`;
 export const summaryUrl = (realm: string, id: number) => `/api/${realm}/main/unit/summary?id=${id}`;

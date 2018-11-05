@@ -34,8 +34,6 @@ export class RetailTradingHallParser extends Parser {
                 .map((e: HTMLElement) => NumberUtils.numberify($(e).text())) as number[],
             updateFieldNames = $html.find(':text').toArray()
                 .map((e: HTMLElement) => $(e).attr('name')) as string[],
-            geos = $html.find('.grid a:has(img):not(:has(img[alt]))').toArray()
-                .map((e: HTMLElement) => $(e).attr('href').match(/\d+\/\d+\/\d+/)[0]),
             produstIds = $html.find('a.popup').toArray()
                 .map((e: HTMLElement) => NumberUtils.numberify($(e).attr('href').split('/')[9])) as number[];
 
@@ -51,7 +49,6 @@ export class RetailTradingHallParser extends Parser {
             deliver: delivered[i],
             stock: stocks[i],
             share: shares[i],
-            geo: geos[i],
             history: [],
             report: null,
             supply: null,

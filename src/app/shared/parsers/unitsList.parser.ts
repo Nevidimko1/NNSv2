@@ -13,6 +13,7 @@ import { AppState, globals } from '../appState';
 import { IGlobalsState } from 'src/app/reducers/globals.reducer';
 import { unitItemData } from './responses/unitItem.data';
 import { unitIndicatorData } from './responses/unitIndicator.data';
+import { unitProductData } from './responses/retailUnitProduct.data';
 
 @Injectable()
 export class UnitsListParser extends Parser {
@@ -22,36 +23,6 @@ export class UnitsListParser extends Parser {
         private store: Store<AppState>
     ) {
         super();
-    }
-
-    private mapProducts = (responseItem: IUnitsResponseItem): UnitProduct[] => {
-        const idsString = (responseItem.product_ids || '{}'),
-            ids = idsString
-                .slice(1, idsString.length - 1)
-                .split(',')
-                .map(stringId => Number(stringId)),
-            symbolsString = (responseItem.product_symbols || '{}'),
-            product_symbols = symbolsString
-                .slice(1, symbolsString.length - 1)
-                .replace(/"/g, '')
-                .split(','),
-            namesString = (responseItem.product_names || ''),
-            product_names = namesString
-                .slice(1, namesString.length - 1)
-                .replace(/"/g, '')
-                .split(',');
-
-        if (ids.length !== product_symbols.length || ids.length !== product_names.length) {
-            throw new Error('Failed to parse unit products list');
-        }
-
-        return ids.map((id, i) => {
-            return new UnitProduct({
-                id,
-                symbol: product_symbols[i],
-                name: product_names[i]
-            });
-        }) || [];
     }
 
     public parse = (response: IUnitsResponse): Observable<Unit[]> => {
@@ -85,7 +56,14 @@ export class UnitsListParser extends Parser {
                     marketStatus: responseItem.market_status,
                     timeToBuild: Number(responseItem.time_to_build),
                     officeSort: Number(responseItem.office_sort),
-                    products: this.mapProducts(responseItem),
+                    products: responseItem.products.map(product => {
+                        this.diff(product, unitProductData);
+                        return new UnitProduct({
+                            id: Number(product.id),
+                            symbol: product.symbol,
+                            name: product.name
+                        });
+                    }),
                     indicators: Object.keys(response.indicators)
                         .filter((key: string) => Number(responseItem.id) === Number(key))
                         .map((key: string) => CommonUtils.flatMap(response.indicators[key])

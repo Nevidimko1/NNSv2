@@ -1,3 +1,9 @@
+export interface IUnitsResponseProduct {
+    id: string;
+    name: string;
+    symbol: string;
+}
+
 export class IUnitsResponseItem {
     id: string;
     name: string;
@@ -18,9 +24,7 @@ export class IUnitsResponseItem {
     unit_class_kind: string;
     productivity: string;
     notice: string;
-    product_ids: string;
-    product_symbols: string;
-    product_names: string;
+    products: IUnitsResponseProduct[];
     market_status: string;
     time_to_build: string;
     office_sort: string;

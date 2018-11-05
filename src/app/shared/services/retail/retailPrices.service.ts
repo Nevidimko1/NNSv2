@@ -1,27 +1,30 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable, of, empty, } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { map, flatMap, first, tap, finalize } from 'rxjs/operators';
 
-import { AppState, globals } from '../appState';
-import { ApiService } from './api.service';
-import { tradingHallUrl, productReportUrl, productHistoryUrl } from '../api';
+import { AppState, globals } from '../../appState';
+import { ApiService } from '../api.service';
+import { tradingHallUrl, productHistoryUrl } from '../../api';
 import { RetailProduct } from 'src/app/models/retail/retailProduct.model';
-import { IRetailProductReportResponse } from 'src/app/models/retail/retailProductReportResponse.model';
-import { RetailTradingHallParser } from '../parsers/retail/retailTradingHall.parser';
-import { RetailProductReportParser } from '../parsers/retail/retailProductReport.parser';
-import { RetailProductHistoryParser } from '../parsers/retail/retailProductHistory.parser';
+import { RetailTradingHallParser } from '../../parsers/retail/retailTradingHall.parser';
+import { RetailProductHistoryParser } from '../../parsers/retail/retailProductHistory.parser';
 import { UnitsTableItem } from 'src/app/modules/unitsTable/models/unitsTableItem.model';
+import { UNIT_TYPES } from '../../unitTypes.enum';
+import { RetailService } from './retail.service';
+import { GeoService } from '../geo.service';
 
 @Injectable()
-export class RetailPricesService {
+export class RetailPricesService extends RetailService {
     constructor(
-        private store: Store<AppState>,
-        private apiService: ApiService,
+        protected store: Store<AppState>,
+        protected apiService: ApiService,
+        protected geoService: GeoService,
         private tradingHallParser: RetailTradingHallParser,
-        private productReportParser: RetailProductReportParser,
         private productHistoryParser: RetailProductHistoryParser
-    ) { }
+    ) {
+        super(store, apiService, geoService);
+    }
 
     private getTradingHallData$ = (unit: UnitsTableItem): Observable<RetailProduct[]> => {
         return this.store.select(globals).pipe(
@@ -44,12 +47,10 @@ export class RetailPricesService {
         );
     }
 
-    private populateReports$ = (products: RetailProduct[]): Observable<RetailProduct[]> => {
-        return this.store.select(globals).pipe(
-            first(),
+    private populateReports$ = (unit: UnitsTableItem, products: RetailProduct[]): Observable<RetailProduct[]> => {
+        return of([]).pipe(
             flatMap(state => products.reduce((result, p) => result.pipe(
-                flatMap(() => this.apiService.get<IRetailProductReportResponse>(productReportUrl(state.info.realm, p.id, p.geo))),
-                flatMap(response => this.productReportParser.parse(response)),
+                flatMap(() => this.getReport$(unit.info, p.id)),
                 tap(report => p.report = report),
                 finalize(() => [])
             ), of([]))),
@@ -104,12 +105,12 @@ export class RetailPricesService {
         return of([]).pipe(
             flatMap(() => this.getTradingHallData$(unit)),
             flatMap(products => this.populateHistories$(unit, products)),
-            flatMap(products => this.populateReports$(products)),
+            flatMap(products => this.populateReports$(unit, products)),
             flatMap(products => this.setPrices$(unit, products))
         );
     }
 
     public checkAndUpdate$ = (unit: UnitsTableItem): Observable<any> => {
-        return (unit.info.unitClassKind === 'shop') ? this.update$(unit) : of([]);
+        return (unit.info.unitClassKind === UNIT_TYPES.SHOP) ? this.update$(unit) : of([]);
     }
 }

@@ -13,7 +13,6 @@ export class RetailProduct {
     deliver: number;
     stock: number;
     share: number;
-    geo: string;
     history: RetailProductHistory[];
     report: RetailProductReport;
     supply: number;

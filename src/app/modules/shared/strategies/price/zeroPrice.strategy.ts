@@ -1,6 +1,6 @@
 import { IPriceStrategy } from '../../../../models/strategy/priceStrategy.model';
-import { UnitProduct } from '../../../../models/unitInfo/unitProduct.model';
 import { UNIT_TYPES } from '../../../../shared/unitTypes.enum';
+import { RetailProduct } from 'src/app/models/retail/retailProduct.model';
 
 export class ZeroPriceStrategy implements IPriceStrategy {
 
@@ -11,7 +11,7 @@ export class ZeroPriceStrategy implements IPriceStrategy {
 
     constructor() { }
 
-    public calc = (p: UnitProduct): number => {
+    public calc = (p: RetailProduct): number => {
         return 0;
     }
 }

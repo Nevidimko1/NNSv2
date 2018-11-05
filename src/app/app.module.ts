@@ -12,10 +12,6 @@ import { GlobalsService } from './shared/services/globals.service';
 import { HttpModule } from '@angular/http';
 import { map, filter } from 'rxjs/operators';
 import { UnitsTableComponent } from './modules/unitsTable/unitsTable.component';
-import { UnitsListParser } from './shared/parsers/unitsList.parser';
-import { UnitsListService } from './shared/services/unitsList.service';
-import { UnitsTypesService } from './shared/services/unitsTypes.service';
-import { UnitsTypesParser } from './shared/parsers/unitsTypes.parser';
 import { IGlobalsState } from './reducers/globals.reducer';
 import { ToolbarComponent } from './modules/toolbar/toolbar.component';
 import { LetDirective } from './directives/ngLet.directive';
@@ -52,8 +48,6 @@ import { SettingsService } from './modules/shared/services/settings.service';
     ],
     providers: [
         ApiService,
-        UnitsListParser,
-        UnitsTypesParser,
         ForecastParser,
         UnitSummaryParser,
 
@@ -63,9 +57,7 @@ import { SettingsService } from './modules/shared/services/settings.service';
 
         SettingsService,
         UnitInfoService,
-        GlobalsService,
-        UnitsListService,
-        UnitsTypesService
+        GlobalsService
     ],
     entryComponents: [
         AppComponent,

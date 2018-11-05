@@ -8,7 +8,9 @@ import { UnitsTableItem } from '../unitsTable/models/unitsTableItem.model';
 import { UnitsTableState } from '../unitsTable/unitsTable.reducer';
 import { ControlPanelService } from './controlPanel.service';
 import { ControlPanelState, ControlPanelActions } from './controlPanel.reducer';
-import { RetailPricesService } from 'src/app/shared/services/retailPrices.service';
+import { RetailPricesService } from 'src/app/shared/services/retail/retailPrices.service';
+import { RetailSupplyService } from 'src/app/shared/services/retail/retailSupply.service';
+import { RetailService } from 'src/app/shared/services/retail/retail.service';
 
 @Component({
     selector: 'app-control-panel',
@@ -20,7 +22,10 @@ import { RetailPricesService } from 'src/app/shared/services/retailPrices.servic
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [
         ControlPanelService,
-        RetailPricesService
+
+        RetailService,
+        RetailPricesService,
+        RetailSupplyService
     ]
 })
 export class ControlPanelComponent implements OnDestroy {

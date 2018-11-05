@@ -1,7 +1,9 @@
 import { IBase, Base } from '../base.model';
+import { RetailProductReport } from '../retail/retailProductReport.model';
 
 export interface IUnitProduct extends IBase {
     symbol: string;
+    report?: RetailProductReport;
 }
 
 export class UnitProduct extends Base {
@@ -9,7 +11,8 @@ export class UnitProduct extends Base {
         super(_data);
     }
 
-    get symbol(): string {
-        return this._data.symbol;
-    }
+    set report(val: RetailProductReport)    { this._data.report = val; }
+
+    get symbol(): string                    { return this._data.symbol; }
+    get report(): RetailProductReport       { return this._data.report; }
 }
