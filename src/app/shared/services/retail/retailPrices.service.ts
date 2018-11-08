@@ -40,8 +40,7 @@ export class RetailPricesService extends RetailService {
             flatMap(state => products.reduce((result, p) => result.pipe(
                 flatMap(() => this.apiService.get<string>(productHistoryUrl(state.info.realm, unit.id, p.id))),
                 flatMap(html => this.productHistoryParser.parse(html)),
-                tap(history => p.history = history),
-                finalize(() => [])
+                tap(history => p.history = history)
             ), of([]))),
             map(() => products)
         );

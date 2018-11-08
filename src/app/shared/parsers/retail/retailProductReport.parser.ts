@@ -25,7 +25,6 @@ export class RetailProductReportParser extends Parser {
             companyCount: NumberUtils.numberify(response.company_count),
             indexMax: NumberUtils.numberify(response.index_max),
             indexMin: NumberUtils.numberify(response.index_min),
-            localMarketLevel: NumberUtils.numberify(response.local_market_level),
             localMarketSize: NumberUtils.numberify(response.local_market_size),
             localPrice: NumberUtils.numberify(response.local_price),
             localQuality: NumberUtils.numberify(response.local_quality),

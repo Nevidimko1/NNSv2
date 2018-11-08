@@ -50,9 +50,8 @@ export class SharedPriceStrategy {
                 if (product.price > 0) {
                     const err = `${product.report.name}: 0 sales for min price (${product.price})`;
                     console.error(err);
-                } else {
-                    price = CalcFunctions.calcBaseRetailPrice(product.quality, localPrice, localQuality);
                 }
+                price = CalcFunctions.calcBaseRetailPrice(product.quality, localPrice, localQuality);
             }
         }
 

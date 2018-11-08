@@ -5,7 +5,6 @@ export class RetailProductReport {
     companyCount: number;
     indexMax: number;
     indexMin: number;
-    localMarketLevel: number;
     localMarketSize: number;
     localPrice: number;
     localQuality: number;
